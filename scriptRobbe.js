@@ -4,6 +4,10 @@ document.getElementById("travel").addEventListener("click", callTravelAPI);
 
 document.getElementById("testAPIs").addEventListener("click", testAPIs);
 
+document.getElementById("testOptions").addEventListener("click", testOptions);
+
+document.getElementById("testRadius").addEventListener("click", testRadius);
+
 
 function callFootballAPI() {
     console.log("FOOTBALL");
@@ -16,7 +20,6 @@ function callFootballAPI() {
         console.error('Error:', error);
     });
 }
-
 
 function callTravelAPI() {
     console.log("TRAVEL");
@@ -31,6 +34,12 @@ function callTravelAPI() {
     })
     .catch(error => console.log('error', error));
 }
+
+//Make a list of the basic filters for sportmonks api
+//Countries & leagues
+//
+
+
 function testAPIs() {
     console.log("hello world");
     fetch("https://soccer.sportmonks.com/api/v2.0/fixtures/between/2023-01-02/2023-01-02?api_token=1GoW5Zal0tKjHcvovZTHNVty1B35cuZHol8sz9TPNgwIyl22350MGOEOGdn5")
@@ -38,15 +47,26 @@ function testAPIs() {
     .then(data => {
         const coordinates = data.data[0].weather_report.coordinates;
         console.log(coordinates);
-        const geoapifyUrl = `https://api.geoapify.com/v2/places?categories=catering.restaurant,catering.cafe&filter=circle:${coordinates.lat},${coordinates.lon},5000&limit=20&apiKey=2e37c02459684f11b9472b5ec244d1e3`;
+        const geoapifyUrl = `https://api.geoapify.com/v2/places?categories=catering.restaurant,catering.cafe&filter=circle:${coordinates.lon},${coordinates.lat},5000&limit=20&apiKey=2e37c02459684f11b9472b5ec244d1e3`;
         return fetch(geoapifyUrl);
     })
     .then(response => response.json())
-  .then(data => {
+    .then(data => {
     // extract the data you need from the response
-    console.log(data);
-  })
-  .catch(error => {
-    console.error(error);
-  });
+        console.log(data);
+    })
+    .catch(error => {
+        console.error(error);
+    });
+}
+function testOptions() {
+    let accOptions = "accommodation." + document.getElementById("accOptions").value;
+    let catOptions = "catering." + document.getElementById("catOptions").value;
+    let parkOptions = "parking." + document.getElementById("parkOptions").value;
+    let TraOptions = "public_transport." + document.getElementById("TraOptions").value;
+    console.log(accOptions + " & " + catOptions + " & " + parkOptions + " & " + TraOptions);
+}
+function testRadius() {
+    let radius = document.getElementById("radius").value;
+    console.log(radius)
 }
