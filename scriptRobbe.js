@@ -68,6 +68,7 @@ function testAPIs() {
         console.log("this: " + data)
     // extract the data you need from the response
         let div = document.getElementById("results");
+        div.innerHTML = '';
         data.features.forEach((item, index) => {
             let place_id = item.properties.place_id
             let detailURL = `https://api.geoapify.com/v2/place-details?id=${place_id}&apiKey=51d3185c0772406c92f1907efa83798e`
