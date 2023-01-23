@@ -15,6 +15,7 @@ main{
     padding: 0 10px;
 }
 .card{
+    margin: 30px 0;
     box-shadow: 0 0 15px 4px #818181
 }
 .card-title{
