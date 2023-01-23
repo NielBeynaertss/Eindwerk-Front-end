@@ -46,25 +46,20 @@ function testAPIs() {
         const coordinates = data.data[0].weather_report.coordinates;
         console.log(coordinates);
         const geoapifyUrl = `https://api.geoapify.com/v2/places?categories=catering.restaurant,catering.cafe&filter=circle:${coordinates.lon},${coordinates.lat},5000&limit=20&apiKey=2e37c02459684f11b9472b5ec244d1e3`;
-        console.log(geoapifyUrl);
         return fetch(geoapifyUrl);
     })
     .then(response => response.json())
     .then(data => {
     // extract the data you need from the response
-        console.log(data);
-
         let div = document.getElementById("results");
-        data.features.forEach(item => {
-            extra_info = ""
-            item.properties.categories.forEach(item2 => {
-                if (item2 == "vegan" || item2 == "vegetarian" || item2 == "halal" || item2 == "kosher")
-                extra_info += item2 + " "
-            })
+        data.features.forEach((item, index) => {
+            let place_id = item.properties.place_id
+            let detailURL = `https://api.geoapify.com/v2/place-details?id=${place_id}&apiKey=51d3185c0772406c92f1907efa83798e`
             let template = `<div>
                             <h2>${item.properties.name}</h2>
-                            <p>${item.properties.address_line2}</p>
-                            <p>${extra_info}</p>
+                            <p>Adress: ${item.properties.address_line2}</p>
+                            <button onclick="fetchPlaceDetails('${detailURL}', ${index})">Details</button>
+                            <div id="place-details-${index}"></div>
                             </div>`;
             div.innerHTML += template;
         });
@@ -73,6 +68,28 @@ function testAPIs() {
         console.error(error);
     });
 }
+
+function fetchPlaceDetails(url, index) {
+    fetch(url)
+    .then(response => response.json())
+    .then(data => {
+        // extract the data you need from the response
+        let placeDetails = data.features[0].properties;
+        console.log(placeDetails.contact.phone + " & " + placeDetails.website)
+
+        let detailsTemplate = `<p> Phone: ${placeDetails.contact.phone}</p>
+                                <p> Website: ${placeDetails.website}</p>`
+        console.log("hello world")
+        console.log(detailsTemplate)
+        let detailsDiv = document.getElementById(`place-details-${index}`);
+        detailsDiv.innerHTML = detailsTemplate;
+    })
+    .catch(error => {
+        console.error(error);
+    });
+}
+
+
 
 //let extra_info = ""
 //item.properties.categories.forEach(item2 => {
