@@ -6,8 +6,6 @@ document.getElementById("testAPIs").addEventListener("click", testAPIs);
 
 document.getElementById("testOptions").addEventListener("click", testOptions);
 
-document.getElementById("testRadius").addEventListener("click", testRadius);
-
 
 function callFootballAPI() {
     console.log("FOOTBALL");
@@ -54,19 +52,28 @@ function testAPIs() {
     .then(data => {
     // extract the data you need from the response
         console.log(data);
+        let div = document.getElementById("results");
+        data.features.forEach(item => {
+            let template = `<div>
+                            <h2>${item.properties.name}</h2>
+                            </div>`;
+            div.innerHTML += template;
+        });
     })
     .catch(error => {
         console.error(error);
     });
 }
+
+
+
 function testOptions() {
     let accOptions = "accommodation." + document.getElementById("accOptions").value;
     let catOptions = "catering." + document.getElementById("catOptions").value;
     let parkOptions = "parking." + document.getElementById("parkOptions").value;
     let TraOptions = "public_transport." + document.getElementById("TraOptions").value;
-    console.log(accOptions + " & " + catOptions + " & " + parkOptions + " & " + TraOptions);
-}
-function testRadius() {
     let radius = document.getElementById("radius").value;
-    console.log(radius)
+    let testURL = `https://api.geoapify.com/v2/places?categories=${accOptions},${catOptions},${parkOptions},${TraOptions}&filter=circle:lon,lat,${radius}`
+    console.log(testURL);
+    
 }
