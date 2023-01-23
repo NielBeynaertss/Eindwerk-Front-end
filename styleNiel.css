@@ -1,15 +1,32 @@
-*{
+*{/*Take away general paddings and margins from the whole project*/
     padding: 0; 
     margin: 0;
 }
-body{
+body{/*Standard bg color for the whole page*/
     background-color: #212529 !important;
 }
-hr{
+hr{/*Changes color of the Horizontal rule(hr)*/
     color: white !important;
+}
+main{
+    padding-bottom: 150px;
 }
 .nav-item{
     padding: 0 10px;
+}
+.card{
+    margin: 30px 0;
+    box-shadow: 0 0 15px 4px #818181
+}
+.card-title{
+    padding-top: 10px;
+}
+.card_position{
+    display: flex;
+    justify-content: space-around;
+}
+.card_img_style{
+    height: 300px;
 }
 .FAQ_button{
     width: 100%;
@@ -17,6 +34,17 @@ hr{
 .FAQ_text{
     width: 98.2%;
     padding: 0 auto;
+}
+.footer{
+    background-color: rgb(0, 0, 0) !important;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 
 
