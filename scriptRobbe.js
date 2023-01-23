@@ -46,16 +46,25 @@ function testAPIs() {
         const coordinates = data.data[0].weather_report.coordinates;
         console.log(coordinates);
         const geoapifyUrl = `https://api.geoapify.com/v2/places?categories=catering.restaurant,catering.cafe&filter=circle:${coordinates.lon},${coordinates.lat},5000&limit=20&apiKey=2e37c02459684f11b9472b5ec244d1e3`;
+        console.log(geoapifyUrl);
         return fetch(geoapifyUrl);
     })
     .then(response => response.json())
     .then(data => {
     // extract the data you need from the response
         console.log(data);
+
         let div = document.getElementById("results");
         data.features.forEach(item => {
+            extra_info = ""
+            item.properties.categories.forEach(item2 => {
+                if (item2 == "vegan" || item2 == "vegetarian" || item2 == "halal" || item2 == "kosher")
+                extra_info += item2 + " "
+            })
             let template = `<div>
                             <h2>${item.properties.name}</h2>
+                            <p>${item.properties.address_line2}</p>
+                            <p>${extra_info}</p>
                             </div>`;
             div.innerHTML += template;
         });
@@ -65,7 +74,12 @@ function testAPIs() {
     });
 }
 
-
+//let extra_info = ""
+//item.properties.categories.forEach(item2 => {
+//    if (item2 == "vegan" || item2 == "vegetarian" || item2 == "halal" || item2 == "wheelchair.yes" ) {
+//        extra_info += item2 + " "
+//    }
+//})
 
 function testOptions() {
     let accOptions = "accommodation." + document.getElementById("accOptions").value;
