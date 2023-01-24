@@ -28,12 +28,18 @@ main{
 .card_img_style{
     height: 300px;
 }
-.FAQ_button{
-    width: 100%;
+.fixtures_input{
+    padding: 10px;
+    border-radius: 15px;
+    margin: 0 0 20px 0;
 }
-.FAQ_text{
-    width: 98.2%;
-    padding: 0 auto;
+.fixtures_input_button{
+    padding: 5px;
+    border-radius: 5px;
+    width:100px;
+}
+.accordion-button{
+    background-color: rgb(112, 112, 112) !important;
 }
 .footer{
     background-color: rgb(0, 0, 0) !important;
@@ -66,7 +72,30 @@ main{
 .contact_info_text{
     padding: 10px;
 }
-
+.fixtures_cards{
+    margin: 10px 10px;
+}
+.fixtures_card{
+    display: flex;
+    background-color: rgb(112, 112, 112);
+    border-radius: 15px;
+    margin: 20px 0;
+}
+.fixtures_cards_col{
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+}
+.fixtures_cards_img{
+    max-width: 300px;
+    padding: 10px;
+}
+.fixtures_cards_vs{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 
 

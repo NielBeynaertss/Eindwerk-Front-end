@@ -63,8 +63,41 @@
 
 <main>
   <div class="container-sm">
+    <div class="text-light text-center m-3"><h1>Fixtures</h1></div>
 
-    <div class="fixtures col text-light" id="fixtures-container"></div>
+    <div class="row">
+      <div class="col-3">
+        <div class="row">
+          <div>
+            <label for="start-date" class="text-light">From:</label><br>
+            <input type="text" id="start-date" class="fixtures_input" name="start-date" placeholder="YYYY-MM-DD">
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label for="end-date" class="text-light">Until:</label><br>
+            <input type="text" id="end-date" class="fixtures_input" name="end-date" placeholder="YYYY-MM-DD">
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <button id="submit-button" class="fixtures_input_button">Submit</button>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+
+      </div>
+
+    </div>
+
+    
+    
+
+
+
+
+    <div class="fixtures row text-light" id="fixtures-container"></div>
 
   </div>  
 </main>
