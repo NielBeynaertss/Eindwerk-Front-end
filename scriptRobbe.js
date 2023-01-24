@@ -1,5 +1,13 @@
+//Adds events to the buttons so they call up the right function when clicked
 document.getElementById("finalAPI").addEventListener("click", fixtureToMenu);
+document.getElementById('showDropdown').addEventListener("click", showDropdown)
 
+
+
+//This function fetches the url of an api to get more information of a specific place
+//This API call costs a lot of resources in terms of requests/credits per month
+//This is why it's not part of the main fetch, because calling the api for all results would make it hit the request cap very fast
+//It creates a new template containing some important information if you're more interested in the place
 function fetchPlaceDetails(url, index) {
     console.log(url)
     fetch(url)
@@ -21,6 +29,13 @@ function fetchPlaceDetails(url, index) {
     });
 }
 
+
+
+//The first part of this function checks all checkboxes and puts the values of all ticked boxes in the variable called 'filtersWith'
+//It also adds a comma to all values because that's important for the syntax for the next api call
+//After all boxes are checked, it removes the last character (the final comma) of the string, otherwise the api call won't work
+//It creates a new URL with all the variable inputs given by the user and fetches an api from that
+//Then, it takes the elements it needs to create the template we can use as the result
 function checkboxToURL(coordinates) {
     let checkboxes = document.querySelectorAll('input[type="checkbox"]');
     let filtersWith = '';
@@ -38,7 +53,6 @@ function checkboxToURL(coordinates) {
     fetch(geoapifyURL)
     .then(response => response.json())
     .then(data => {
-        console.log("this: " + data)
     // extract the data you need from the response
         let div = document.getElementById("results");
         div.innerHTML = '';
@@ -59,6 +73,9 @@ function checkboxToURL(coordinates) {
     });
 }
 
+
+//This function shows the right menu with checkboxes when the first search gets completed
+//Some checkboxes would still be ticked after they get hidden again, so it clears all checkboxes at the end of this function
 function showDropdown() {
     let options = document.getElementById("opt").value;
     let acc = document.getElementById("acc");
@@ -121,6 +138,9 @@ function showDropdown() {
     }
 };
 
+
+//This function fetches the football api for a certain fixture, takes the venue id from it
+//then it fetches the api again so it can get the coordinates from it and return it
 function fetchFootballAPI() {
     return fetch('https://soccer.sportmonks.com/api/v2.0/fixtures/18531230?api_token=1GoW5Zal0tKjHcvovZTHNVty1B35cuZHol8sz9TPNgwIyl22350MGOEOGdn5')
     .then(response => response.json())
@@ -140,6 +160,9 @@ function fetchFootballAPI() {
     });
 }
 
+
+//This function calles up the football api-function, then changes the display state of the search function
+//It also links a function with the coordinates to a function
 function fixtureToMenu() {
     fetchFootballAPI()
     .then(coordinates => {
@@ -152,9 +175,6 @@ function fixtureToMenu() {
         opt.style.display = "block"
         button.style.display = "block"
 
-        button.addEventListener('click', function(){
-            showDropdown();
-        })
         //dit kan eventueel terug naar boven
         resultsButton.addEventListener('click', function(){
             checkboxToURL(finalCoordinates);
