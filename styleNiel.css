@@ -28,6 +28,9 @@ main{
 .card_img_style{
     height: 300px;
 }
+.fixtures{
+    padding: 20px 0;
+}
 .fixtures_input{
     padding: 10px;
     border-radius: 15px;

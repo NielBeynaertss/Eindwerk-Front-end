@@ -51,6 +51,7 @@ submitButton.addEventListener("click", function(){
     })
     .then(data => {
       let fixturecontainer = document.getElementById("fixtures-container");
+      fixturecontainer.innerHTML = "";
       data.data.forEach(fixture => {
         let fixture_hometeam_id = fixture.localteam_id;
         let urlHomeTeam = `https://soccer.sportmonks.com/api/v2.0/teams/${fixture_hometeam_id}?api_token=XknJJDTtdX0z1nFtbPxt1C29IestIRI7izPt9gtzTFZP7JDZufu6nAmW8F70`;
