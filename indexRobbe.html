@@ -4,53 +4,133 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="styleRobbe.css"> 
     <title>Document</title>
 </head>
 <body>
-    <button name="football" id="football">
-        FOOTBALL
+    <div>
+        <button name="football" id="football">
+            FOOTBALL
+        </button>
+        <button name="travel" id="travel">
+            TRAVEL
+        </button>
+        <button name="testAPIs" id="testAPIs">
+            TEST APIS
+        </button>
+    </div>
+    <div>
+        <select name="options" id="opt">
+            <option value="acco">Accomodations</option>
+            <option value="cate">Catering</option>
+            <option value="heal">Healthcare</option>
+            <option value="park">Parking</option>
+            <option value="rent">Rental</option>
+            <option value="tran">Transport</option>
+        </select>
+
+    </div>
+
+    <div>
+        <div id="acc" class="invis">
+            <i class="fa-solid fa-house"></i> Accomodations <i class="fa-solid fa-hotel"></i>
+            <div>
+                <label><input type="checkbox" value="accommodation"> All</label>
+                <label><input type="checkbox" value="accommodation.hotel"> Hotel</label>
+                <label><input type="checkbox" value="accommodation.hut"> Hut</label>
+                <label><input type="checkbox" value="accommodation.apartment"> Apartment</label>
+                <label><input type="checkbox" value="accommodation.chalet"> Chalet</label>
+                <label><input type="checkbox" value="accommodation.guest_house"> Guest House</label>
+                <label><input type="checkbox" value="accommodation.hostel"> Hostel</label>
+                <label><input type="checkbox" value="accommodation.motel"> Motel</label>
+            </div>
+        </div>
+
+        <div id="cat" class="invis">
+            <i class="fa-solid fa-utensils"></i> Catering <i class="fa-solid fa-burger"></i>
+            <div>
+                <label><input type="checkbox" value="catering"> All</label>
+                <label><input type="checkbox" value="catering.restaurant"> Restaurant</label>
+                <label><input type="checkbox" value="catering.restaurant.pizza"> Pizza</label>
+                <label><input type="checkbox" value="catering.fast_food.burger"> Burgers</label>
+                <label><input type="checkbox" value="catering.restaurant.kebab"> Kebab</label>
+                <label><input type="checkbox" value="catering.fast_food"> Fast Food</label>
+                <label><input type="checkbox" value="catering.cafe"> Cafe</label>
+                <label><input type="checkbox" value="catering.cafe.coffee_shop"> Coffee</label>
+                <label><input type="checkbox" value="catering.bar"> Bar</label>
+                <label><input type="checkbox" value="catering.pub"> Pub</label>
+                <label><input type="checkbox" value="catering.ice_cream"> Ice Cream</label>
+            </div>
+        </div>
+
+        <div id="hea" class="invis">
+            <i class="fa-solid fa-truck-medical"></i> Healthcare <i class="fa-solid fa-tooth"></i>
+            <div>
+                <label><input type="checkbox" value="healthcare"> All</label>
+                <label><input type="checkbox" value="healthcare.hospital"> Hospital</label>
+                <label><input type="checkbox" value="healthcare.dentist"> Dentist</label>
+                <label><input type="checkbox" value="healthcare.pharmacy"> Pharmacy</label>
+            </div>
+        </div>
+
+        <div id="par" class="invis">
+            <i class="fa-solid fa-square-parking"></i> Parking <i class="fa-solid fa-motorcycle"></i>
+            <div>
+                <label><input type="checkbox" value="parking"> All</label>
+                <label><input type="checkbox" value="parking.cars"> Cars</label>
+                <label><input type="checkbox" value="parking.motorcycle"> Motorcycles</label>
+                <label><input type="checkbox" value="parking.bicycles"> Bicycles</label>
+            </div>
+        </div>
+
+        <div id="ren" class="invis">
+            <i class="fa-solid fa-car"></i> Rental <i class="fa-solid fa-bicycle"></i>
+            <div>
+                <label><input type="checkbox" value="rental"> All</label>
+                <label><input type="checkbox" value="rental.car"> Car</label>
+                <label><input type="checkbox" value="rental.bicycle"> Bicycle</label>
+                <label><input type="checkbox" value="rental.boat"> Boat</label>
+                <label><input type="checkbox" value="rental.ski"> Skies</label>
+            </div>
+        </div>
+
+        <div id="tra" class="invis">
+            <i class="fa-solid fa-train-subway"></i> Transport <i class="fa-solid fa-plane"></i>
+            <div>
+                <label><input type="checkbox" value="airport"> Airport</label>
+                <label><input type="checkbox" value="public_transport"> All Other</label>
+                <label><input type="checkbox" value="public_transport.train"> Train Station</label>
+                <label><input type="checkbox" value="public_transport.subway"> Subway Station</label>
+                <label><input type="checkbox" value="public_transport.subway.entrance"> Subway Entrance</label>
+                <label><input type="checkbox" value="public_transport.bus"> Bus Stop</label>
+                <label><input type="checkbox" value="public_transport.tram"> Tram Stop</label>
+                <label><input type="checkbox" value="public_transport.ferry"> Ferry</label>
+                <label><input type="checkbox" value="public_transport.aerialway"> Major Roads</label>
+            </div>
+        </div>
+    </div>
+    <!--
+        Doesn't need to be an option, it needs to show with the result.
+    <div>
+        Other options
+        <select name="options" id="opt">
+            <option value="int"> Internet Access?</option>
+            <option value="whe"> Suited For Wheelchair?</option>
+            <option value="foo"> Food Options</option>
+            <option value="dog"> Dogs Allowed?</option>
+        </select>
+    </div>
+    -->
+
+
+
+    <button name="testLink" id="testLink">
+        TEST LINK
     </button>
-    <button name="travel" id="travel">
-        TRAVEL
-    </button>
-    <button name="testAPIs" id="testAPIs">
-        TEST APIS
-    </button>
 
-    <select name="accOptions" id="accOptions" placeholder="Accomodations">
-        <option>Accomodations</option>
-        <option value="h">hotel</option>
-        <option>hostel</option>
-        <option>motel</option>
-    </select>
-
-    <select name="catOptions" id="catOptions" placeholder="Catering">
-        <option>Catering</option>
-        <option>restaurant</option>
-        <option>fast_food</option>
-        <option>cafe</option>
-    </select>
-
-    <select name="parkOptions" id="parkOptions" placeholder="Parking">
-        <option>Parking</option>
-        <option>underground</option>
-        <option>surface</option>
-        <option>rooftop</option>
-    </select>
-
-    <select name="TraOptions" id="TraOptions" placeholder="Public Transport">
-        <option>Public Transport</option>
-        <option>train</option>
-        <option>bus</option>
-        <option>subway</option>
-    </select>
-
-    <input type="number" id="radius" placeholder="Distance (in m)">
-
-    <button name="testOptions" id="testOptions">
-        TEST OPTIONS
-    </button>
-
+    <!--
+    TEAMS
     <select name="teams" id="teams">
     <option value="939">Midtjylland</option>
     <option value="1020">AAB</option>
@@ -65,7 +145,8 @@
     <option value="53">Celtic</option>
     <option value="62">Rangers</option>
     </select>
-
+    -->
+    <div id="link"></div>
 
     <div id="results"></div>
 
