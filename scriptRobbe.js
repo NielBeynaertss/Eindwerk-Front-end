@@ -188,6 +188,16 @@ function placeholder() {
     linkTestDiv.innerHTML = searchFilters;
 }
 
+function checkboxToURL() {
+    const checkboxes = document.querySelectorAll('#acc input[type="checkbox"]');
+    const selected = Array.from(checkboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
+    console.log(selected);
+}
+
+//first add the checkboxes
+//then find a way to deselect all non-useful checkboxes
+
+
 //Categories it needs to check:
 //Accomodation
 //Catering

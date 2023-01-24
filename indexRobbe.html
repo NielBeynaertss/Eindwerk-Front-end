@@ -9,17 +9,17 @@
     <title>Document</title>
 </head>
 <body>
-    
-    <button name="football" id="football">
-        FOOTBALL
-    </button>
-    <button name="travel" id="travel">
-        TRAVEL
-    </button>
-    <button name="testAPIs" id="testAPIs">
-        TEST APIS
-    </button>
-    
+    <div>
+        <button name="football" id="football">
+            FOOTBALL
+        </button>
+        <button name="travel" id="travel">
+            TRAVEL
+        </button>
+        <button name="testAPIs" id="testAPIs">
+            TEST APIS
+        </button>
+    </div>
     <div>
         <select name="options" id="opt">
             <option value="acco">Accomodations</option>
@@ -30,9 +30,6 @@
             <option value="tran">Transport</option>
         </select>
 
-        <button name="testLink" id="testLink">
-            TEST LINK
-        </button>
     </div>
 
     <div>
@@ -101,7 +98,8 @@
         <div id="tra" class="invis">
             <i class="fa-solid fa-train-subway"></i> Transport <i class="fa-solid fa-plane"></i>
             <div>
-                <label><input type="checkbox" value="public_transport"> All</label>
+                <label><input type="checkbox" value="airport"> Airport</label>
+                <label><input type="checkbox" value="public_transport"> All Other</label>
                 <label><input type="checkbox" value="public_transport.train"> Train Station</label>
                 <label><input type="checkbox" value="public_transport.subway"> Subway Station</label>
                 <label><input type="checkbox" value="public_transport.subway.entrance"> Subway Entrance</label>
@@ -111,11 +109,26 @@
                 <label><input type="checkbox" value="public_transport.aerialway"> Major Roads</label>
             </div>
         </div>
-
+    </div>
     <!--
-    <option value="airport"> Airport </option>
-    Airport ergens anders zetten
+        Doesn't need to be an option, it needs to show with the result.
+    <div>
+        Other options
+        <select name="options" id="opt">
+            <option value="int"> Internet Access?</option>
+            <option value="whe"> Suited For Wheelchair?</option>
+            <option value="foo"> Food Options</option>
+            <option value="dog"> Dogs Allowed?</option>
+        </select>
+    </div>
     -->
+
+
+
+    <button name="testLink" id="testLink">
+        TEST LINK
+    </button>
+
     <!--
     TEAMS
     <select name="teams" id="teams">
@@ -132,7 +145,7 @@
     <option value="53">Celtic</option>
     <option value="62">Rangers</option>
     </select>
--->
+    -->
     <div id="link"></div>
 
     <div id="results"></div>
