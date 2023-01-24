@@ -13,7 +13,6 @@ function fetchPlaceDetails(url, index) {
     fetch(url)
     .then(response => response.json())
     .then(data => {
-        // extract the data you need from the response
         let placeDetails = data.features[0].properties;
         console.log(placeDetails.contact.phone + " & " + placeDetails.website)
 
@@ -28,7 +27,7 @@ function fetchPlaceDetails(url, index) {
         console.error(error);
     });
 }
-
+//need to update this to make it work for places with less/different details
 
 
 //The first part of this function checks all checkboxes and puts the values of all ticked boxes in the variable called 'filtersWith'
@@ -59,6 +58,7 @@ function checkboxToURL(coordinates) {
         data.features.forEach((item, index) => {
             let place_id = item.properties.place_id
             let detailURL = `https://api.geoapify.com/v2/place-details?id=${place_id}&apiKey=51d3185c0772406c92f1907efa83798e`
+            console.log(detailURL)
             let template = `<div>
                             <h2>${item.properties.name}</h2>
                             <p>Adress: ${item.properties.address_line2}</p>
