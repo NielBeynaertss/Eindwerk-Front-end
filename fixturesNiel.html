@@ -63,8 +63,25 @@
 
 <main>
   <div class="container-sm">
+    <div class="text-light text-center m-3"><h1>Fixtures</h1></div>
 
-    <div class="fixtures col text-light" id="fixtures-container"></div>
+    <div class="row">
+      <div class="col">
+        <label for="start-date">Start Date:</label>
+        <input type="text" id="start-date" name="start-date" placeholder="YYYY-MM-DD">
+      </div>
+    </div>
+
+    
+    
+    <br>
+    <label for="end-date">End Date:</label>
+    <input type="text" id="end-date" name="end-date" placeholder="YYYY-MM-DD"><br>
+    <button id="submit-button">Submit</button>
+
+
+
+    <div class="fixtures row text-light" id="fixtures-container"></div>
 
   </div>  
 </main>
