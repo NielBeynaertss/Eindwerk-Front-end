@@ -4,7 +4,9 @@ document.getElementById("travel").addEventListener("click", callTravelAPI);
 
 document.getElementById("testAPIs").addEventListener("click", testAPIs);
 
-document.getElementById("testLink").addEventListener("click", showDropdown);
+document.getElementById("testBoxes").addEventListener("click", checkboxToURL);
+
+document.getElementById("finalAPI").addEventListener("click", fixtureToMenu);
 
 
 function callFootballAPI() {
@@ -106,15 +108,57 @@ function fetchPlaceDetails(url, index) {
     });
 }
 
-function showDropdown() {
-    const options = document.getElementById("opt").value;
-    const acc = document.getElementById("acc");
-    const cat = document.getElementById("cat");
-    const hea = document.getElementById("hea");
-    const par = document.getElementById("par");
-    const ren = document.getElementById("ren");
-    const tra = document.getElementById("tra");
+function checkboxToURL(coordinates) {
+    let checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    let filtersWith = '';
+    for (let i = 0; i <checkboxes.length; i++) {
+        if (checkboxes[i].checked) {
+            // If it is, add its value to the values array
+            filtersWith += checkboxes[i].value + ','
+        }
+    }
+    let filters = filtersWith.substring(0, filtersWith.length - 1);
+    let radius = document.getElementById('radius').value;
+    console.log(`filters: ${filters} & coordinates: ${coordinates} & radius ${radius}`);
+    let geoapifyURL = `https://api.geoapify.com/v2/places?categories=${filters}&filter=circle:${coordinates},${radius}&limit=20&apiKey=2e37c02459684f11b9472b5ec244d1e3`
+    console.log(geoapifyURL);
+    fetch(geoapifyURL)
+    .then(response => response.json())
+    .then(data => {
+        console.log("this: " + data)
+    // extract the data you need from the response
+        let div = document.getElementById("results");
+        div.innerHTML = '';
+        data.features.forEach((item, index) => {
+            let place_id = item.properties.place_id
+            let detailURL = `https://api.geoapify.com/v2/place-details?id=${place_id}&apiKey=51d3185c0772406c92f1907efa83798e`
+            let template = `<div>
+                            <h2>${item.properties.name}</h2>
+                            <p>Adress: ${item.properties.address_line2}</p>
+                            <button onclick="fetchPlaceDetails('${detailURL}', ${index})">Details</button>
+                            <div id="place-details-${index}"></div>
+                            </div>`;
+            div.innerHTML += template;
+        });
+    })
+    .catch(error => {
+        console.error(error);
+    });
+}
 
+function showDropdown() {
+    let options = document.getElementById("opt").value;
+    let acc = document.getElementById("acc");
+    let cat = document.getElementById("cat");
+    let hea = document.getElementById("hea");
+    let par = document.getElementById("par");
+    let ren = document.getElementById("ren");
+    let tra = document.getElementById("tra");
+    let rad = document.getElementById("rad");
+    let res = document.getElementById("res")
+
+    res.style.display = "block"
+    rad.style.display = "block"
     if (options === "acco") {
         acc.style.display = "block";
         cat.style.display = "none";
@@ -158,40 +202,54 @@ function showDropdown() {
         ren.style.display = "none";
         tra.style.display = "block";
     }
+    var checkboxes = document.querySelectorAll("input[type='checkbox']");
+    for (var i = 0; i < checkboxes.length; i++) {
+        checkboxes[i].checked = false;
+    }
+};
+
+function fetchFootballAPI() {
+    return fetch('https://soccer.sportmonks.com/api/v2.0/fixtures/18531230?api_token=1GoW5Zal0tKjHcvovZTHNVty1B35cuZHol8sz9TPNgwIyl22350MGOEOGdn5')
+    .then(response => response.json())
+    .then(data => {
+        venue_id = data.data.venue_id;
+        return fetch(`https://soccer.sportmonks.com/api/v2.0/venues/${venue_id}?api_token=1GoW5Zal0tKjHcvovZTHNVty1B35cuZHol8sz9TPNgwIyl22350MGOEOGdn5`)
+            .then(response => response.json())
+            .then(data => {
+                let wrongCoordinates = data.data.coordinates
+                let [lat, lon] = wrongCoordinates.split(',');
+                let coordinates = `${lon},${lat}`
+                return coordinates
+                })
+    })
+    .catch(error => {
+        console.error(error);
+    });
 }
 
-function placeholder() {
-    console.log("hello world")
-    let searchFilters = ""
-    if (document.getElementById("acc").value != 0) {
-        searchFilters += document.getElementById("acc").value + ','
-    }
-    if (document.getElementById("cat").value != 0) {
-        searchFilters += document.getElementById("cat").value + ','
-    }
-    if (document.getElementById("hea").value != 0) {
-        searchFilters += document.getElementById("hea").value + ','
-    }
-    if (document.getElementById("par").value != 0) {
-        searchFilters += document.getElementById("par").value + ','
-    }
-    if (document.getElementById("ren").value != 0) {
-        searchFilters += document.getElementById("ren").value + ','
-    }
-    if (document.getElementById("tra").value != 0) {
-        searchFilters += document.getElementById("tra").value + ','
-    }
-    console.log("we got here")
-    console.log(searchFilters)
-    linkDiv = `<p>${searchFilters}</p>`
-    let linkTestDiv = document.getElementById('link');
-    linkTestDiv.innerHTML = searchFilters;
-}
+function fixtureToMenu() {
+    fetchFootballAPI()
+    .then(coordinates => {
+        finalCoordinates = coordinates;
 
-function checkboxToURL() {
-    const checkboxes = document.querySelectorAll('#acc input[type="checkbox"]');
-    const selected = Array.from(checkboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
-    console.log(selected);
+        let button = document.getElementById('showDropdown')
+        let opt = document.getElementById('mainMenu')
+        let resultsButton = document.getElementById('res')
+
+        opt.style.display = "block"
+        button.style.display = "block"
+
+        button.addEventListener('click', function(){
+            showDropdown();
+        })
+        //dit kan eventueel terug naar boven
+        resultsButton.addEventListener('click', function(){
+            checkboxToURL(finalCoordinates);
+        })
+    })
+    .catch(error => {
+        console.error(error);
+    });
 }
 
 //first add the checkboxes
@@ -213,6 +271,3 @@ function checkboxToURL() {
 //Commercial?
 //Entertainment?
 //Tourism?
-
-
-//Supported conditions:

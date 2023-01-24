@@ -20,7 +20,7 @@
             TEST APIS
         </button>
     </div>
-    <div>
+    <div id= "mainMenu" class="invis">
         <select name="options" id="opt">
             <option value="acco">Accomodations</option>
             <option value="cate">Catering</option>
@@ -31,6 +31,10 @@
         </select>
 
     </div>
+
+    <button name="showDropdown" id="showDropdown" class="invis">
+        Search!
+    </button>
 
     <div>
         <div id="acc" class="invis">
@@ -110,6 +114,17 @@
             </div>
         </div>
     </div>
+
+    <div id="rad" class="invis">
+        <input type="number" id="radius" placeholder="Max distance (in meter)">
+    </div>
+
+    <button id="res" class="invis">GET RESULTS</button>
+
+    <button name="testBoxes" id="testBoxes">
+        TEST BOXES
+    </button>
+
     <!--
         Doesn't need to be an option, it needs to show with the result.
     <div>
@@ -125,11 +140,9 @@
 
 
 
-    <button name="testLink" id="testLink">
-        TEST LINK
-    </button>
+    
 
-    <!--
+    
     TEAMS
     <select name="teams" id="teams">
     <option value="939">Midtjylland</option>
@@ -145,7 +158,13 @@
     <option value="53">Celtic</option>
     <option value="62">Rangers</option>
     </select>
-    -->
+    
+    <button name="finalAPI" id="finalAPI">
+        TEST FINAL API
+    </button>
+
+
+
     <div id="link"></div>
 
     <div id="results"></div>
