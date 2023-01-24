@@ -5,9 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="styleRobbe.css"> 
     <title>Document</title>
 </head>
 <body>
+    
     <button name="football" id="football">
         FOOTBALL
     </button>
@@ -17,88 +19,104 @@
     <button name="testAPIs" id="testAPIs">
         TEST APIS
     </button>
-
-    <select name="options" id="opt">
-        <option value="acco">Accomodations</option>
-        <option value="cate">Catering</option>
-        <option value="heal">Healthcare</option>
-        <option value="park">Parking</option>
-        <option value="rent">Rental</option>
-        <option value="tran">Transport</option>
-    </select>
-
-    <select name="accomodations" id="acc">
-        <option value="0"> Accomodations </option>
-        <option value="accommodation"> All </option>
-        <option value="accommodation.hotel"> Hotel </option>
-        <option value="accommodation.hut"> Hut </option>
-        <option value="accommodation.apartment"> Apartment </option>
-        <option value="accommodation.chalet"> Chalet </option>
-        <option value="accommodation.guest_house"> Guest House </option>
-        <option value="accommodation.hostel"> Hostel </option>
-        <option value="accommodation.motel"> Motel </option>
-    </select>
-
-    <select name="catering" id="cat">
-        <option value="0"> Catering </option>
-        <option value="catering"> All </option>
-        <option value="catering.restaurant	"> Restaurant </option>
-        <option value="catering.restaurant.pizza"> Pizza </option>
-        <option value="catering.fast_food.burger"> Burger </option>
-        <option value="catering.restaurant.kebab"> Kebab </option>
-        <option value="catering.fast_food"> Fast Food </option>
-        <option value="catering.cafe"> Cafe </option>
-        <option value="catering.cafe.coffee_shop"> Coffee </option>
-        <option value="catering.bar"> Bar </option>
-        <option value="catering.pub"> Pub </option>
-        <option value="catering.ice_cream"> Ice Cream </option>
-    </select>
-
-    <select name="healthcare" id="hea">
-        <option value="0"> Healthcare </option>
-        <option value="healthcare"> All </option>
-        <option value="healthcare.hospital"> Hospital </option>
-        <option value="healthcare.dentist"> Dentist </option>
-        <option value="healthcare.pharmacy"> Pharmacy </option>
-    </select>
-
-    <select name="parking" id="par">
-        <option value="0"> Parking </option>
-        <option value="parking"> All </option>
-        <option value="parking.cars"> Parking For Cars </option>
-        <option value="parking.motorcycle"> Parking for Motorcycles </option>
-        <option value="parking.bicycles"> Bicycles </option>
-    </select>
-
-    <select name="rental" id="ren">
-        <option value="0"> Rental </option>
-        <option value="rental"> All </option>
-        <option value="rental.car"> Rent A Car </option>
-        <option value="rental.bicycle"> Rent A Bicycle </option>
-        <option value="rental.boat"> Rent A Boat </option>
-        <option value="rental.ski"> Rent Skies </option>
-    </select>
-
-    <select name="transport" id="tra">
-        <option value="0"> (Public) Transport </option>
-        <option value="public_transport"> All </option>
-        <option value="airport"> Airport </option>
-        <!--Airport ergens anders zetten-->
-        <option value="public_transport.train"> Train Station </option>
-        <option value="public_transport.subway"> Subway </option>
-        <option value="public_transport.subway.entrance	"> Subway Entrance </option>
-        <option value="public_transport.bus"> Bus </option>
-        <option value="public_transport.tram"> Tram </option>
-        <option value="public_transport.ferry"> Ferry </option>
-        <option value="public_transport.aerialway"> Big roads </option>
-    </select>
-
     
+    <div>
+        <select name="options" id="opt">
+            <option value="acco">Accomodations</option>
+            <option value="cate">Catering</option>
+            <option value="heal">Healthcare</option>
+            <option value="park">Parking</option>
+            <option value="rent">Rental</option>
+            <option value="tran">Transport</option>
+        </select>
 
-    <button name="testLink" id="testLink">
-        TEST LINK
-    </button>
+        <button name="testLink" id="testLink">
+            TEST LINK
+        </button>
+    </div>
 
+    <div>
+        <div id="acc" class="invis">
+            <i class="fa-solid fa-house"></i> Accomodations <i class="fa-solid fa-hotel"></i>
+            <div>
+                <label><input type="checkbox" value="accommodation"> All</label>
+                <label><input type="checkbox" value="accommodation.hotel"> Hotel</label>
+                <label><input type="checkbox" value="accommodation.hut"> Hut</label>
+                <label><input type="checkbox" value="accommodation.apartment"> Apartment</label>
+                <label><input type="checkbox" value="accommodation.chalet"> Chalet</label>
+                <label><input type="checkbox" value="accommodation.guest_house"> Guest House</label>
+                <label><input type="checkbox" value="accommodation.hostel"> Hostel</label>
+                <label><input type="checkbox" value="accommodation.motel"> Motel</label>
+            </div>
+        </div>
+
+        <div id="cat" class="invis">
+            <i class="fa-solid fa-utensils"></i> Catering <i class="fa-solid fa-burger"></i>
+            <div>
+                <label><input type="checkbox" value="catering"> All</label>
+                <label><input type="checkbox" value="catering.restaurant"> Restaurant</label>
+                <label><input type="checkbox" value="catering.restaurant.pizza"> Pizza</label>
+                <label><input type="checkbox" value="catering.fast_food.burger"> Burgers</label>
+                <label><input type="checkbox" value="catering.restaurant.kebab"> Kebab</label>
+                <label><input type="checkbox" value="catering.fast_food"> Fast Food</label>
+                <label><input type="checkbox" value="catering.cafe"> Cafe</label>
+                <label><input type="checkbox" value="catering.cafe.coffee_shop"> Coffee</label>
+                <label><input type="checkbox" value="catering.bar"> Bar</label>
+                <label><input type="checkbox" value="catering.pub"> Pub</label>
+                <label><input type="checkbox" value="catering.ice_cream"> Ice Cream</label>
+            </div>
+        </div>
+
+        <div id="hea" class="invis">
+            <i class="fa-solid fa-truck-medical"></i> Healthcare <i class="fa-solid fa-tooth"></i>
+            <div>
+                <label><input type="checkbox" value="healthcare"> All</label>
+                <label><input type="checkbox" value="healthcare.hospital"> Hospital</label>
+                <label><input type="checkbox" value="healthcare.dentist"> Dentist</label>
+                <label><input type="checkbox" value="healthcare.pharmacy"> Pharmacy</label>
+            </div>
+        </div>
+
+        <div id="par" class="invis">
+            <i class="fa-solid fa-square-parking"></i> Parking <i class="fa-solid fa-motorcycle"></i>
+            <div>
+                <label><input type="checkbox" value="parking"> All</label>
+                <label><input type="checkbox" value="parking.cars"> Cars</label>
+                <label><input type="checkbox" value="parking.motorcycle"> Motorcycles</label>
+                <label><input type="checkbox" value="parking.bicycles"> Bicycles</label>
+            </div>
+        </div>
+
+        <div id="ren" class="invis">
+            <i class="fa-solid fa-car"></i> Rental <i class="fa-solid fa-bicycle"></i>
+            <div>
+                <label><input type="checkbox" value="rental"> All</label>
+                <label><input type="checkbox" value="rental.car"> Car</label>
+                <label><input type="checkbox" value="rental.bicycle"> Bicycle</label>
+                <label><input type="checkbox" value="rental.boat"> Boat</label>
+                <label><input type="checkbox" value="rental.ski"> Skies</label>
+            </div>
+        </div>
+
+        <div id="tra" class="invis">
+            <i class="fa-solid fa-train-subway"></i> Transport <i class="fa-solid fa-plane"></i>
+            <div>
+                <label><input type="checkbox" value="public_transport"> All</label>
+                <label><input type="checkbox" value="public_transport.train"> Train Station</label>
+                <label><input type="checkbox" value="public_transport.subway"> Subway Station</label>
+                <label><input type="checkbox" value="public_transport.subway.entrance"> Subway Entrance</label>
+                <label><input type="checkbox" value="public_transport.bus"> Bus Stop</label>
+                <label><input type="checkbox" value="public_transport.tram"> Tram Stop</label>
+                <label><input type="checkbox" value="public_transport.ferry"> Ferry</label>
+                <label><input type="checkbox" value="public_transport.aerialway"> Major Roads</label>
+            </div>
+        </div>
+
+    <!--
+    <option value="airport"> Airport </option>
+    Airport ergens anders zetten
+    -->
+    <!--
     TEAMS
     <select name="teams" id="teams">
     <option value="939">Midtjylland</option>
@@ -114,7 +132,7 @@
     <option value="53">Celtic</option>
     <option value="62">Rangers</option>
     </select>
-
+-->
     <div id="link"></div>
 
     <div id="results"></div>
