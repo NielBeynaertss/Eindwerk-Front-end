@@ -4,7 +4,7 @@ document.getElementById("travel").addEventListener("click", callTravelAPI);
 
 document.getElementById("testAPIs").addEventListener("click", testAPIs);
 
-document.getElementById("testOptions").addEventListener("click", testOptions);
+document.getElementById("testLink").addEventListener("click", testLink);
 
 
 function callFootballAPI() {
@@ -32,7 +32,6 @@ function callTravelAPI() {
     })
     .catch(error => console.log('error', error));
 }
-
 
 function testAPIs() {
     let team_id = document.getElementById("teams").value
@@ -96,7 +95,7 @@ function fetchPlaceDetails(url, index) {
         console.log(placeDetails.contact.phone + " & " + placeDetails.website)
 
         let detailsTemplate = `<p> Phone: ${placeDetails.contact.phone}</p>
-                                <p> Website: ${placeDetails.website}</p>
+                                <p> Website: <a href="${placeDetails.website}" target="_blank">${placeDetails.website}</a></p>
                                 <p> Opening hours: ${placeDetails.opening_hours}</p>
                                 `
         let detailsDiv = document.getElementById(`place-details-${index}`);
@@ -107,14 +106,49 @@ function fetchPlaceDetails(url, index) {
     });
 }
 
-
-function testOptions() {
-    let accOptions = "accommodation." + document.getElementById("accOptions").value;
-    let catOptions = "catering." + document.getElementById("catOptions").value;
-    let parkOptions = "parking." + document.getElementById("parkOptions").value;
-    let TraOptions = "public_transport." + document.getElementById("TraOptions").value;
-    let radius = document.getElementById("radius").value;
-    let testURL = `https://api.geoapify.com/v2/places?categories=${accOptions},${catOptions},${parkOptions},${TraOptions}&filter=circle:lon,lat,${radius}`
-    console.log(testURL);
-    
+function testLink() {
+    console.log("hello world")
+    let searchFilters = ""
+    if (document.getElementById("acc").value != 0) {
+        searchFilters += document.getElementById("acc").value + ','
+    }
+    if (document.getElementById("cat").value != 0) {
+        searchFilters += document.getElementById("cat").value + ','
+    }
+    if (document.getElementById("hea").value != 0) {
+        searchFilters += document.getElementById("hea").value + ','
+    }
+    if (document.getElementById("par").value != 0) {
+        searchFilters += document.getElementById("par").value + ','
+    }
+    if (document.getElementById("ren").value != 0) {
+        searchFilters += document.getElementById("ren").value + ','
+    }
+    if (document.getElementById("tra").value != 0) {
+        searchFilters += document.getElementById("tra").value + ','
+    }
+    console.log("we got here")
+    console.log(searchFilters)
+    linkDiv = `<p>${searchFilters}</p>`
+    let linkTestDiv = document.getElementById('link');
+    linkTestDiv.innerHTML = searchFilters;
 }
+
+//Categories it needs to check:
+//Accomodation
+//Catering
+//Healthcare
+//Parking
+//Rental
+//Airport
+//Public Transport
+
+//Eventueel later:
+//Sport
+//Services?
+//Commercial?
+//Entertainment?
+//Tourism?
+
+
+//Supported conditions:
