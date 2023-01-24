@@ -4,7 +4,7 @@ document.getElementById("travel").addEventListener("click", callTravelAPI);
 
 document.getElementById("testAPIs").addEventListener("click", testAPIs);
 
-document.getElementById("testLink").addEventListener("click", testLink);
+document.getElementById("testLink").addEventListener("click", showDropdown);
 
 
 function callFootballAPI() {
@@ -106,7 +106,61 @@ function fetchPlaceDetails(url, index) {
     });
 }
 
-function testLink() {
+function showDropdown() {
+    const options = document.getElementById("opt").value;
+    const acc = document.getElementById("acc");
+    const cat = document.getElementById("cat");
+    const hea = document.getElementById("hea");
+    const par = document.getElementById("par");
+    const ren = document.getElementById("ren");
+    const tra = document.getElementById("tra");
+
+    if (options === "acco") {
+        acc.style.display = "block";
+        cat.style.display = "none";
+        hea.style.display = "none";
+        par.style.display = "none";
+        ren.style.display = "none";
+        tra.style.display = "none";
+    } else if (options === "cate") {
+        acc.style.display = "none";
+        cat.style.display = "block";
+        hea.style.display = "none";
+        par.style.display = "none";
+        ren.style.display = "none";
+        tra.style.display = "none";
+    } else if (options === "heal") {
+        acc.style.display = "none";
+        cat.style.display = "none";
+        hea.style.display = "block";
+        par.style.display = "none";
+        ren.style.display = "none";
+        tra.style.display = "none";
+    } else if (options === "park") {
+        acc.style.display = "none";
+        cat.style.display = "none";
+        hea.style.display = "none";
+        par.style.display = "block";
+        ren.style.display = "none";
+        tra.style.display = "none";
+    } else if (options === "rent") {
+        acc.style.display = "none";
+        cat.style.display = "none";
+        hea.style.display = "none";
+        par.style.display = "none";
+        ren.style.display = "block";
+        tra.style.display = "none";
+    } else if (options === "tran") {
+        acc.style.display = "none";
+        cat.style.display = "none";
+        hea.style.display = "none";
+        par.style.display = "none";
+        ren.style.display = "none";
+        tra.style.display = "block";
+    }
+}
+
+function placeholder() {
     console.log("hello world")
     let searchFilters = ""
     if (document.getElementById("acc").value != 0) {
