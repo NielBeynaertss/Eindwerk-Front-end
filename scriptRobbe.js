@@ -143,14 +143,32 @@ function fetchPlaceDetails(url, index) {
     .then(response => response.json())
     .then(data => {
         let placeDetails = data.features[0].properties;
-        if ("phone" in placeDetails.contact) {
+        if ("contact" in placeDetails) {
             console.log("IT WORKS")
+            phoneTemplate = `<p> Phone: ${placeDetails.contact.phone}</p>`
         }
-        console.log(placeDetails.contact.phone + " & " + placeDetails.website)
+        else {
+            phoneTemplate = `<p> No phone given</p>`
+        }
 
-        let detailsTemplate = `<p> Phone: ${placeDetails.contact.phone}</p>
-                                <p> Website: <a href="${placeDetails.website}" target="_blank">${placeDetails.website}</a></p>
-                                <p> Opening hours: ${placeDetails.opening_hours}</p>
+        if ("website" in placeDetails) {
+            console.log("IT WORKS TOO")
+            websiteTemplate = `<p> Website: <a href="${placeDetails.website}" target="_blank">${placeDetails.website}</a></p>`
+        }
+        else {
+            websiteTemplate = `<p> No website given</p>`
+        }
+        if ("opening_hours" in placeDetails) {
+            console.log("IT WORKS 3")
+            hoursTemplate = `<p> Opening hours: ${placeDetails.opening_hours}</p>`
+        }
+        else {
+            hoursTemplate = `<p> No opening hours given</p>`
+        }
+
+        let detailsTemplate = `${phoneTemplate}
+                                ${websiteTemplate}
+                                ${hoursTemplate}
                                 `
         let detailsDiv = document.getElementById(`place-details-${index}`);
         detailsDiv.innerHTML = detailsTemplate;
@@ -159,7 +177,6 @@ function fetchPlaceDetails(url, index) {
         console.error(error);
     });
 }
-//need to update this to make it work for places with less/different details
 
 //This function calles up the football api-function, then changes the display state of the search function
 //It also links a function with the coordinates to a function
@@ -203,8 +220,8 @@ function fixtureToMenu() {
 
 //Options need to come with the final result
 
-//Results div needs to clear when making a new call
-
 //Distance?
 
 //Expand the results (all pizza results when looking for pizza)
+
+//More information in details?
