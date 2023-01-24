@@ -28,6 +28,16 @@ main{
 .card_img_style{
     height: 300px;
 }
+.fixtures_input{
+    padding: 10px;
+    border-radius: 15px;
+    margin: 0 0 20px 0;
+}
+.fixtures_input_button{
+    padding: 5px;
+    border-radius: 5px;
+    width:100px;
+}
 .accordion-button{
     background-color: rgb(112, 112, 112) !important;
 }
