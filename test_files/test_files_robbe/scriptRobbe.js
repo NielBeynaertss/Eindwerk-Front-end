@@ -35,11 +35,13 @@ function showDropdown() {
     let ren = document.getElementById("ren");
     let tra = document.getElementById("tra");
     let rad = document.getElementById("rad");
-    let res = document.getElementById("res")
-
+    let res = document.getElementById("res");
+        
+    
     res.style.display = "block"
     rad.style.display = "block"
     if (options === "acco") {
+        extraOptAcc.style.display = "block"
         acc.style.display = "block";
         cat.style.display = "none";
         hea.style.display = "none";
@@ -181,10 +183,10 @@ function checkConditions(info) {
         console.log("hello world")
         if (info.includes("internet_access.free")) {
             
-            int = `<p> Free internet! </p>`
+            int = `<p> <i class="fa-solid fa-globe"></i> Free internet! </p>`
         }
         else {
-            int = `<p> Internet for customers! </p>`
+            int = `<p><i class="fa-solid fa-globe"></i> Internet for customers! </p>`
         }
     }
     else {
@@ -194,10 +196,10 @@ function checkConditions(info) {
     let whe = ``
     if (info.includes("wheelchair")) {
         if (info.includes("wheelchair.yes")) {
-            whe = `<p> Wheelchair accessible! </p>`
+            whe = `<p> <i class="fa-solid fa-wheelchair"></i> Wheelchair accessible! </p>`
         }
         else {
-            whe = `<p> Wheelchair accessibility Limited! </p>`
+            whe = `<p> <i class="fa-solid fa-wheelchair"></i> Wheelchair accessibility Limited! </p>`
         }
     }
     else {
@@ -207,13 +209,13 @@ function checkConditions(info) {
     let dog = ``
     if (info.includes("dogs")) {
         if ("dogs.yes" in info) {
-            dog = `<p> Dogs allowed! </p>`
+            dog = `<p><i class="fa-solid fa-dog"></i> Dogs allowed! </p>`
         }
         else if (info.includes("dogs.leashed")) {
-            dog = `<p> Dogs need to be leashed! </p>`
+            dog = `<p><i class="fa-solid fa-dog"></i> Dogs need to be leashed! </p>`
         }
         else {
-            dog = `<p> No dogs allowed! </p>`
+            dog = `<p><i class="fa-solid fa-dog"></i> No dogs allowed! </p>`
             
         }
     }
@@ -226,10 +228,10 @@ function checkConditions(info) {
 // Food options
     let veget = ``
     if (info.includes("vegetarian.only")) {
-        veget = `<p> Serves only vegetarian food! </p>`
+        veget = `<p><i class="fa-solid fa-leaf"></i> Serves only vegetarian food! </p>`
     }
     else if (info.includes("vegetarian")) {
-        veget = `<p> Serves vegetarian food! </p>`
+        veget = `<p><i class="fa-solid fa-leaf"></i> Serves vegetarian food! </p>`
     }
     else {
         noInfoFood += " vegetarian food,"
@@ -237,10 +239,10 @@ function checkConditions(info) {
 
     let vegan = ``
     if (info.includes("vegan.only")) {
-        vegan = `<p> Serves only vegan food! </p>`
+        vegan = `<p><i class="fa-solid fa-v"></i> Serves only vegan food! </p>`
     }
     else if (info.includes("vegan")) {
-        vegan = `<p> Serves vegan food! </p>`
+        vegan = `<p><i class="fa-solid fa-v"></i> Serves vegan food! </p>`
     }
     else {
         noInfoFood += " vegan food,"
@@ -420,10 +422,11 @@ function fixtureToMenu() {
         let opt = document.getElementById('mainMenu')
         let resultsButton = document.getElementById('res')
         let fnlAPI = document.getElementById("finalAPI")
-
+        
         opt.style.display = "block"
         button.style.display = "block"
         fnlAPI.style.display = "none"
+        
 
         //dit kan eventueel terug naar boven
         resultsButton.addEventListener('click', function(){
