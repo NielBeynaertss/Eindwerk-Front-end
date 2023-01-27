@@ -175,7 +175,7 @@ function checkConditions(info) {
     let noInfoFood = "No information about"
     let noInfoAll = "No information about"
 
-
+//General information
     let int = ''
     if (info.includes("internet_access")) {
         console.log("hello world")
@@ -223,7 +223,7 @@ function checkConditions(info) {
 
     
     
-
+// Food options
     let veget = ``
     if (info.includes("vegetarian.only")) {
         veget = `<p> Serves only vegetarian food! </p>`
@@ -282,7 +282,7 @@ function checkConditions(info) {
 
 
 
-
+//Allergies
     let glu = ``
     if (info.includes("gluten_free")) {
         glu = `<p> Serves gluten free food! </p>`
@@ -315,33 +315,15 @@ function checkConditions(info) {
         noInfoAll += " soy free food,"
     }
 
-
-
-    if (noInfo == "No information about") {
-        noInfo = ``
+    let infoCheck = [noInfo, noInfoFood, noInfoAll]
+    for (let i = 0; i < 3; i++) {
+        if (infoCheck[i] == "No information about") {
+            infoCheck[i] = ``
+        }
+        else {
+            infoCheck[i] = infoCheck[i].substring(0, infoCheck[i].length-1);
+        }
     }
-    else {
-        noInfo = noInfo.substring(0, noInfo.length - 1);
-    }
-    console.log(noInfo)
-
-    if (noInfoFood == "No information about") {
-        noInfoFood = ``
-    }
-    else {
-        noInfoFood = noInfoFood.substring(0, noInfoFood.length - 1);
-    }
-    console.log(noInfo)
-
-    if (noInfoAll == "No information about") {
-        noInfoAll = ``
-    }
-    else {
-        noInfoAll = noInfoAll.substring(0, noInfoAll.length - 1);
-    }
-    console.log(noInfo);
-    console.log(noInfoFood);
-    console.log(noInfoAll);
 
     let moreDetails = `<h3> Other information </h3>
                         ${int}
@@ -470,6 +452,7 @@ function fixtureToMenu() {
 //Tourism?
 
 //More information in details?
+//Checkboxes with extra options
 
 //Hide button?
 //CHange css of div so it looks a bit better
