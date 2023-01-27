@@ -127,7 +127,7 @@ function checkboxToURL(coordinates) {
                             <h2>${item.properties.name}</h2>
                             <p>Adress: ${item.properties.address_line2}</p>
                             <p>Distance to stadium: ${distance}</p>
-                            <button onclick="fetchPlaceDetails('${detailURL}', ${index})">Details</button>
+                            <button onclick="fetchPlaceDetails('${detailURL}', ${index}, '${conditions}')">Details</button>
                             <div id="place-details-${index}"></div>
                             </div>`;
             div.innerHTML += template;
@@ -323,12 +323,15 @@ function checkConditions(info) {
 //This API call costs a lot of resources in terms of requests/credits per month
 //This is why it's not part of the main fetch, because calling the api for all results would make it hit the request cap very fast
 //It creates a new template containing some important information if you're more interested in the place
-function fetchPlaceDetails(url, index) {
+function fetchPlaceDetails(url, index, conditions) {
     console.log(url)
+    console.log(conditions)
     fetch(url)
     .then(response => response.json())
     .then(data => {
         let placeDetails = data.features[0].properties;
+        let moreDetails = checkConditions(conditions.split(","));
+        console.log(moreDetails)
         if ("contact" in placeDetails) {
             console.log("IT WORKS")
             phoneTemplate = `<p> Phone: ${placeDetails.contact.phone}</p>`
@@ -355,7 +358,8 @@ function fetchPlaceDetails(url, index) {
         detailsDiv.innerHTML = `<h3> General information </h3>
                                 ${phoneTemplate}
                                 ${websiteTemplate}
-                                ${hoursTemplate}`
+                                ${hoursTemplate}
+                                ${moreDetails}`
     })
     .catch(error => {
         console.error(error);
