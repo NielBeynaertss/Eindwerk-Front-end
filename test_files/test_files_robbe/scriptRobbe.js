@@ -116,12 +116,17 @@ function checkboxToURL(coordinates) {
         let div = document.getElementById("results");
         div.innerHTML = '';
         data.features.forEach((item, index) => {
+            let distance = getDistance(coordinates, item.properties.lat, item.properties.lon)
+            let conditions = item.properties.categories
+            console.log(conditions)
+            console.log(distance)
             let place_id = item.properties.place_id
             let detailURL = `https://api.geoapify.com/v2/place-details?id=${place_id}&apiKey=51d3185c0772406c92f1907efa83798e`
             console.log(detailURL)
             let template = `<div>
                             <h2>${item.properties.name}</h2>
                             <p>Adress: ${item.properties.address_line2}</p>
+                            <p>Distance to stadium: ${distance}</p>
                             <button onclick="fetchPlaceDetails('${detailURL}', ${index})">Details</button>
                             <div id="place-details-${index}"></div>
                             </div>`;
@@ -131,6 +136,187 @@ function checkboxToURL(coordinates) {
     .catch(error => {
         console.error(error);
     });
+}
+
+//This function calculates the direct distance between the stadium and the place of interest
+function getDistance(coordinates1, lat2, lon2) {
+    function toRad(x) {
+        return x * Math.PI / 180;
+    }
+    let [lon1, lat1] = coordinates1.split(',');
+    //console.log(`1: ${lon1}, 2: ${lat1}, 3: ${lon2}, 4: ${lat2}`);
+
+    var R = 6371; // radius of Earth in km
+
+    var x1 = lat2 - lat1;
+    var dLat = toRad(x1);
+    var x2 = lon2 - lon1;
+    var dLon = toRad(x2)
+    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var d = R * c;
+    d = Math.round(d * 1000) / 1000;
+    if (d < 1) {
+        d *= 1000
+        d += 'm'
+
+    }
+    else {
+        d += 'km'
+    }
+    return d;
+}
+
+function checkConditions(info) {
+    let int = ''
+    if ("internet_access" in info) {
+        if ("internet_access.free" in info) {
+            int = `<p> Free internet! </p>`
+        }
+        else {
+            int = `<p> Internet for customers! </p>`
+        }
+    }
+    else {
+        int = `<p> No information about internet </p>`
+    }
+
+    let whe = ``
+    if ("wheelchair" in info) {
+        if ("wheelchair.yes" in info) {
+            whe = `<p> Wheelchair accessible! </p>`
+        }
+        else {
+            whe = `<p> Wheelchair accessibility Limited! </p>`
+        }
+    }
+    else {
+        whe = `<p> No information about wheelchair accessibility </p>`
+    }
+
+    let dog = ``
+    if ("dogs" in info) {
+        if ("dogs.yes" in info) {
+            dog = `<p> Dogs allowed! </p>`
+        }
+        else if ("dogs.leashed" in info) {
+            dog = `<p> Dogs need to be leashed! </p>`
+        }
+        else {
+            dog = `<p> No dogs allowed! </p>`
+        }
+    }
+    else {
+        dog = `<p> No information if dogs are allowed or not </p>`
+    }
+
+    let veget = ``
+    if ("vegetarian.only" in info) {
+        veget = `<p> Serves only vegetarian food! </p>`
+    }
+    else if ("vegetarian" in info) {
+        veget = `<p> Serves vegetarian food! </p>`
+    }
+    else {
+        veget = `<p> No information about vegetarian food </p>`
+    }
+
+    let vegan = ``
+    if ("vegan.only" in info) {
+        vegan = `<p> Serves only vegan food! </p>`
+    }
+    else if ("vegan" in info) {
+        vegan = `<p> Serves vegan food! </p>`
+    }
+    else {
+        vegan = `<p> No information about vegan food </p>`
+    }
+
+    let halal = ``
+    if ("halal.only" in info) {
+        halal = `<p> Serves only halal food! </p>`
+    }
+    else if ("halal" in info) {
+        halal = `<p> Serves halal food! </p>`
+    }
+    else {
+        halal = `<p> No information about halal food </p>`
+    }
+
+    let koshe = ``
+    if ("kosher.only" in info) {
+        koshe = `<p> Serves only kosher food! </p>`
+    }
+    else if ("kosher" in info) {
+        koshe = `<p> Serves kosher food! </p>`
+    }
+    else {
+        koshe = `<p> No information about kosher food </p>`
+    }
+
+    let organ = ``
+    if ("organic.only" in info) {
+        organ = `<p> Serves only organic food! </p>`
+    }
+    else if ("organic" in info) {
+        organ = `<p> Serves organic food! </p>`
+    }
+    else {
+        organ = `<p> No information about organic food </p>`
+    }
+
+    let glu = ``
+    if ("gluten_free" in info) {
+        glu = `<p> Serves gluten free food! </p>`
+    }
+    else {
+        glu = `<p> No information about gluten free food </p>`
+    }
+
+    let sug = ``
+    if ("sugar_free" in info) {
+        sug = `<p> Serves sugar free food! </p>`
+    }
+    else {
+        sug = `<p> No information about sugar free food </p>`
+    }
+
+    let egg = ``
+    if ("egg_free" in info) {
+        egg = `<p> Serves egg free food! </p>`
+    }
+    else {
+        egg = `<p> No information about egg free food </p>`
+    }
+
+    let soy = ``
+    if ("soy_free" in info) {
+        soy = `<p> Serves soy free food! </p>`
+    }
+    else {
+        soy = `<p> No information about soy free food </p>`
+    }
+
+
+
+    let moreDetails = `<h3> Other information </h3>
+                        ${int}
+                        ${whe}
+                        ${dog}
+                        <h3> Food information </h3>
+                        ${veget}
+                        ${vegan}
+                        ${halal}
+                        ${koshe}
+                        ${organ}
+                        <h3> Food allergies! </h3>
+                        ${glu}
+                        ${sug}
+                        ${egg}
+                        ${soy}`
+    return moreDetails
 }
 
 //This function fetches the url of an api to get more information of a specific place
@@ -165,13 +351,11 @@ function fetchPlaceDetails(url, index) {
         else {
             hoursTemplate = `<p> No opening hours given</p>`
         }
-
-        let detailsTemplate = `${phoneTemplate}
-                                ${websiteTemplate}
-                                ${hoursTemplate}
-                                `
         let detailsDiv = document.getElementById(`place-details-${index}`);
-        detailsDiv.innerHTML = detailsTemplate;
+        detailsDiv.innerHTML = `<h3> General information </h3>
+                                ${phoneTemplate}
+                                ${websiteTemplate}
+                                ${hoursTemplate}`
     })
     .catch(error => {
         console.error(error);
@@ -188,9 +372,11 @@ function fixtureToMenu() {
         let button = document.getElementById('showDropdown')
         let opt = document.getElementById('mainMenu')
         let resultsButton = document.getElementById('res')
+        let fnlAPI = document.getElementById("finalAPI")
 
         opt.style.display = "block"
         button.style.display = "block"
+        fnlAPI.style.display = "none"
 
         //dit kan eventueel terug naar boven
         resultsButton.addEventListener('click', function(){
@@ -219,9 +405,5 @@ function fixtureToMenu() {
 //Tourism?
 
 //Options need to come with the final result
-
-//Distance?
-
-//Expand the results (all pizza results when looking for pizza)
 
 //More information in details?
