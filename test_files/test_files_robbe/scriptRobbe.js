@@ -171,9 +171,12 @@ function getDistance(coordinates1, lat2, lon2) {
 }
 
 function checkConditions(info) {
-    console.log(info)
+    let noInfo = "No information about"
+    let noInfoFood = "No information about"
+    let noInfoAll = "No information about"
+
+
     let int = ''
-    console.log(info[3])
     if (info.includes("internet_access")) {
         console.log("hello world")
         if (info.includes("internet_access.free")) {
@@ -185,7 +188,7 @@ function checkConditions(info) {
         }
     }
     else {
-        int = `<p> No information about internet </p>`
+        noInfo += " internet,"
     }
 
     let whe = ``
@@ -198,7 +201,7 @@ function checkConditions(info) {
         }
     }
     else {
-        whe = `<p> No information about wheelchair accessibility </p>`
+        noInfo += " wheelchair accessibility,"
     }
 
     let dog = ``
@@ -211,11 +214,15 @@ function checkConditions(info) {
         }
         else {
             dog = `<p> No dogs allowed! </p>`
+            
         }
     }
     else {
-        dog = `<p> No information if dogs are allowed or not </p>`
+        noInfo += " dogs allowed or not,"
     }
+
+    
+    
 
     let veget = ``
     if (info.includes("vegetarian.only")) {
@@ -225,7 +232,7 @@ function checkConditions(info) {
         veget = `<p> Serves vegetarian food! </p>`
     }
     else {
-        veget = `<p> No information about vegetarian food </p>`
+        noInfoFood += " vegetarian food,"
     }
 
     let vegan = ``
@@ -236,7 +243,7 @@ function checkConditions(info) {
         vegan = `<p> Serves vegan food! </p>`
     }
     else {
-        vegan = `<p> No information about vegan food </p>`
+        noInfoFood += " vegan food,"
     }
 
     let halal = ``
@@ -247,7 +254,7 @@ function checkConditions(info) {
         halal = `<p> Serves halal food! </p>`
     }
     else {
-        halal = `<p> No information about halal food </p>`
+        noInfoFood += " halal food,"
     }
 
     let koshe = ``
@@ -258,7 +265,7 @@ function checkConditions(info) {
         koshe = `<p> Serves kosher food! </p>`
     }
     else {
-        koshe = `<p> No information about kosher food </p>`
+        noInfoFood += " kosher food,"
     }
 
     let organ = ``
@@ -269,15 +276,19 @@ function checkConditions(info) {
         organ = `<p> Serves organic food! </p>`
     }
     else {
-        organ = `<p> No information about organic food </p>`
+        noInfoFood += " organic food,"
     }
+
+
+
+
 
     let glu = ``
     if (info.includes("gluten_free")) {
         glu = `<p> Serves gluten free food! </p>`
     }
     else {
-        glu = `<p> No information about gluten free food </p>`
+        noInfoAll += " gluten free food,"
     }
 
     let sug = ``
@@ -285,7 +296,7 @@ function checkConditions(info) {
         sug = `<p> Serves sugar free food! </p>`
     }
     else {
-        sug = `<p> No information about sugar free food </p>`
+        noInfoAll += " sugar free food,"
     }
 
     let egg = ``
@@ -293,7 +304,7 @@ function checkConditions(info) {
         egg = `<p> Serves egg free food! </p>`
     }
     else {
-        egg = `<p> No information about egg free food </p>`
+        noInfoAll += " egg free food,"
     }
 
     let soy = ``
@@ -301,26 +312,56 @@ function checkConditions(info) {
         soy = `<p> Serves soy free food! </p>`
     }
     else {
-        soy = `<p> No information about soy free food </p>`
+        noInfoAll += " soy free food,"
     }
 
 
+
+    if (noInfo == "No information about") {
+        noInfo = ``
+    }
+    else {
+        noInfo = noInfo.substring(0, noInfo.length - 1);
+    }
+    console.log(noInfo)
+
+    if (noInfoFood == "No information about") {
+        noInfoFood = ``
+    }
+    else {
+        noInfoFood = noInfoFood.substring(0, noInfoFood.length - 1);
+    }
+    console.log(noInfo)
+
+    if (noInfoAll == "No information about") {
+        noInfoAll = ``
+    }
+    else {
+        noInfoAll = noInfoAll.substring(0, noInfoAll.length - 1);
+    }
+    console.log(noInfo);
+    console.log(noInfoFood);
+    console.log(noInfoAll);
 
     let moreDetails = `<h3> Other information </h3>
                         ${int}
                         ${whe}
                         ${dog}
+                        ${noInfo}
                         <h3> Food information </h3>
                         ${veget}
                         ${vegan}
                         ${halal}
                         ${koshe}
                         ${organ}
+                        ${noInfoFood}
                         <h3> Food allergies! </h3>
                         ${glu}
                         ${sug}
                         ${egg}
-                        ${soy}`
+                        ${soy}
+                        ${noInfoAll}
+                        `
     return moreDetails
 }
 
@@ -428,10 +469,9 @@ function fixtureToMenu() {
 //Entertainment?
 //Tourism?
 
-//Options need to come with the final result
-
 //More information in details?
 
 //Hide button?
 //CHange css of div so it looks a bit better
 //make font size of general information bigger
+//Options need to come with the final result
