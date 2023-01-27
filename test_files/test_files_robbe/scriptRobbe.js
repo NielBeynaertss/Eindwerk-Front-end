@@ -250,10 +250,10 @@ function checkConditions(info) {
 
     let halal = ``
     if (info.includes("halal.only")) {
-        halal = `<p> Serves only halal food! </p>`
+        halal = `<p><i class="fa-solid fa-book-quran"></i> Serves only halal food! </p>`
     }
     else if (info.includes("halal")) {
-        halal = `<p> Serves halal food! </p>`
+        halal = `<p><i class="fa-solid fa-book-quran"></i> Serves halal food! </p>`
     }
     else {
         noInfoFood += " halal food,"
@@ -261,10 +261,10 @@ function checkConditions(info) {
 
     let koshe = ``
     if (info.includes("kosher.only")) {
-        koshe = `<p> Serves only kosher food! </p>`
+        koshe = `<p><i class="fa-solid fa-scroll-torah"></i> Serves only kosher food! </p>`
     }
     else if (info.includes("kosher")) {
-        koshe = `<p> Serves kosher food! </p>`
+        koshe = `<p><i class="fa-solid fa-scroll-torah"></i> Serves kosher food! </p>`
     }
     else {
         noInfoFood += " kosher food,"
@@ -272,10 +272,10 @@ function checkConditions(info) {
 
     let organ = ``
     if (info.includes("organic.only")) {
-        organ = `<p> Serves only organic food! </p>`
+        organ = `<p><i class="fa-solid fa-seedling"></i> Serves only organic food! </p>`
     }
     else if (info.includes("organic")) {
-        organ = `<p> Serves organic food! </p>`
+        organ = `<p><i class="fa-solid fa-seedling"></i> Serves organic food! </p>`
     }
     else {
         noInfoFood += " organic food,"
@@ -287,7 +287,7 @@ function checkConditions(info) {
 //Allergies
     let glu = ``
     if (info.includes("gluten_free")) {
-        glu = `<p> Serves gluten free food! </p>`
+        glu = `<p><i class="fa-solid fa-wheat-awn"></i> Serves gluten free food! </p>`
     }
     else {
         noInfoAll += " gluten free food,"
@@ -295,7 +295,7 @@ function checkConditions(info) {
 
     let sug = ``
     if (info.includes("sugar_free")) {
-        sug = `<p> Serves sugar free food! </p>`
+        sug = `<p><i class="fa-solid fa-cubes-stacked"></i> Serves sugar free food! </p>`
     }
     else {
         noInfoAll += " sugar free food,"
@@ -303,7 +303,7 @@ function checkConditions(info) {
 
     let egg = ``
     if (info.includes("egg_free")) {
-        egg = `<p> Serves egg free food! </p>`
+        egg = `<p><i class="fa-solid fa-egg"></i> Serves egg free food! </p>`
     }
     else {
         noInfoAll += " egg free food,"
@@ -311,7 +311,7 @@ function checkConditions(info) {
 
     let soy = ``
     if (info.includes("soy_free")) {
-        soy = `<p> Serves soy free food! </p>`
+        soy = `<p><i class="fa-brands fa-nutritionix"></i> Serves soy free food! </p>`
     }
     else {
         noInfoAll += " soy free food,"
@@ -455,7 +455,6 @@ function fixtureToMenu() {
 //Tourism?
 
 //More information in details?
-//Checkboxes with extra options
 
 //Hide button?
 //CHange css of div so it looks a bit better
