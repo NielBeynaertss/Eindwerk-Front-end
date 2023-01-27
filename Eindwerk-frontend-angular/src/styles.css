@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+
+*{/*Take away general paddings and margins from the whole project*/
+    padding: 0; 
+    margin: 0;
+}
+body{/*Standard bg color for the whole page*/
+    background-color: #212529 !important;
+}
+hr{/*Changes color of the Horizontal rule(hr)*/
+    color: white !important;
+}
+main{
+    padding-bottom: 150px;
+}
