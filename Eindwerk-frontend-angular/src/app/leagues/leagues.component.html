@@ -1,1 +1,9 @@
-<p>leagues works!</p>
+<div class="cards card_position">
+    <div *ngFor="let league of leagues.data" class="card">
+        <img [src]="league.logo_path" alt="{{ league.name }} logo" class="card_img_style">
+        <div class="card-body text-center">
+            <div class="card-title">{{ league.name }}</div>
+            <a routerLink="/fixtures" class="btn btn-primary">Get fixtures</a>
+        </div>
+    </div>
+</div>
