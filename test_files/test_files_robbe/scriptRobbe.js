@@ -127,8 +127,9 @@ function checkboxToURL(coordinates) {
                             <h2>${item.properties.name}</h2>
                             <p>Adress: ${item.properties.address_line2}</p>
                             <p>Distance to stadium: ${distance}</p>
-                            <button onclick="fetchPlaceDetails('${detailURL}', ${index}, '${conditions}')">Details</button>
-                            <div id="place-details-${index}"></div>
+                            <button id="button-details-${index}" onclick="fetchPlaceDetails('${detailURL}', ${index}, '${conditions}')">Details</button>
+                            <button class="invis" id="hide-details-${index}" onclick="hideDetails(${index})">Hide details</button>
+                            <div class="box invis" id="place-details-${index}"></div>
                             </div>`;
             div.innerHTML += template;
         });
@@ -170,9 +171,13 @@ function getDistance(coordinates1, lat2, lon2) {
 }
 
 function checkConditions(info) {
+    console.log(info)
     let int = ''
-    if ("internet_access" in info) {
-        if ("internet_access.free" in info) {
+    console.log(info[3])
+    if (info.includes("internet_access")) {
+        console.log("hello world")
+        if (info.includes("internet_access.free")) {
+            
             int = `<p> Free internet! </p>`
         }
         else {
@@ -184,8 +189,8 @@ function checkConditions(info) {
     }
 
     let whe = ``
-    if ("wheelchair" in info) {
-        if ("wheelchair.yes" in info) {
+    if (info.includes("wheelchair")) {
+        if (info.includes("wheelchair.yes")) {
             whe = `<p> Wheelchair accessible! </p>`
         }
         else {
@@ -197,11 +202,11 @@ function checkConditions(info) {
     }
 
     let dog = ``
-    if ("dogs" in info) {
+    if (info.includes("dogs")) {
         if ("dogs.yes" in info) {
             dog = `<p> Dogs allowed! </p>`
         }
-        else if ("dogs.leashed" in info) {
+        else if (info.includes("dogs.leashed")) {
             dog = `<p> Dogs need to be leashed! </p>`
         }
         else {
@@ -213,10 +218,10 @@ function checkConditions(info) {
     }
 
     let veget = ``
-    if ("vegetarian.only" in info) {
+    if (info.includes("vegetarian.only")) {
         veget = `<p> Serves only vegetarian food! </p>`
     }
-    else if ("vegetarian" in info) {
+    else if (info.includes("vegetarian")) {
         veget = `<p> Serves vegetarian food! </p>`
     }
     else {
@@ -224,10 +229,10 @@ function checkConditions(info) {
     }
 
     let vegan = ``
-    if ("vegan.only" in info) {
+    if (info.includes("vegan.only")) {
         vegan = `<p> Serves only vegan food! </p>`
     }
-    else if ("vegan" in info) {
+    else if (info.includes("vegan")) {
         vegan = `<p> Serves vegan food! </p>`
     }
     else {
@@ -235,10 +240,10 @@ function checkConditions(info) {
     }
 
     let halal = ``
-    if ("halal.only" in info) {
+    if (info.includes("halal.only")) {
         halal = `<p> Serves only halal food! </p>`
     }
-    else if ("halal" in info) {
+    else if (info.includes("halal")) {
         halal = `<p> Serves halal food! </p>`
     }
     else {
@@ -246,10 +251,10 @@ function checkConditions(info) {
     }
 
     let koshe = ``
-    if ("kosher.only" in info) {
+    if (info.includes("kosher.only")) {
         koshe = `<p> Serves only kosher food! </p>`
     }
-    else if ("kosher" in info) {
+    else if (info.includes("kosher")) {
         koshe = `<p> Serves kosher food! </p>`
     }
     else {
@@ -257,10 +262,10 @@ function checkConditions(info) {
     }
 
     let organ = ``
-    if ("organic.only" in info) {
+    if (info.includes("organic.only")) {
         organ = `<p> Serves only organic food! </p>`
     }
-    else if ("organic" in info) {
+    else if (info.includes("organic")) {
         organ = `<p> Serves organic food! </p>`
     }
     else {
@@ -268,7 +273,7 @@ function checkConditions(info) {
     }
 
     let glu = ``
-    if ("gluten_free" in info) {
+    if (info.includes("gluten_free")) {
         glu = `<p> Serves gluten free food! </p>`
     }
     else {
@@ -276,7 +281,7 @@ function checkConditions(info) {
     }
 
     let sug = ``
-    if ("sugar_free" in info) {
+    if (info.includes("sugar_free")) {
         sug = `<p> Serves sugar free food! </p>`
     }
     else {
@@ -284,7 +289,7 @@ function checkConditions(info) {
     }
 
     let egg = ``
-    if ("egg_free" in info) {
+    if (info.includes("egg_free")) {
         egg = `<p> Serves egg free food! </p>`
     }
     else {
@@ -292,7 +297,7 @@ function checkConditions(info) {
     }
 
     let soy = ``
-    if ("soy_free" in info) {
+    if (info.includes("soy_free")) {
         soy = `<p> Serves soy free food! </p>`
     }
     else {
@@ -330,7 +335,9 @@ function fetchPlaceDetails(url, index, conditions) {
     .then(response => response.json())
     .then(data => {
         let placeDetails = data.features[0].properties;
-        let moreDetails = checkConditions(conditions.split(","));
+        let info = conditions.split(",")
+        console.log(info)
+        let moreDetails = checkConditions(info);
         console.log(moreDetails)
         if ("contact" in placeDetails) {
             console.log("IT WORKS")
@@ -355,6 +362,13 @@ function fetchPlaceDetails(url, index, conditions) {
             hoursTemplate = `<p> No opening hours given</p>`
         }
         let detailsDiv = document.getElementById(`place-details-${index}`);
+        let detailsBut = document.getElementById(`button-details-${index}`);
+        let detailsHid = document.getElementById(`hide-details-${index}`);
+
+        detailsDiv.style.display = "block"
+        detailsBut.style.display = "none"
+        detailsHid.style.display = "block"
+
         detailsDiv.innerHTML = `<h3> General information </h3>
                                 ${phoneTemplate}
                                 ${websiteTemplate}
@@ -364,6 +378,12 @@ function fetchPlaceDetails(url, index, conditions) {
     .catch(error => {
         console.error(error);
     });
+}
+
+function hideDetails(index) {
+    document.getElementById(`place-details-${index}`).style.display = "none";
+    document.getElementById(`hide-details-${index}`).style.display = "none";
+    document.getElementById(`button-details-${index}`).style.display = "block";
 }
 
 //This function calles up the football api-function, then changes the display state of the search function
@@ -411,3 +431,7 @@ function fixtureToMenu() {
 //Options need to come with the final result
 
 //More information in details?
+
+//Hide button?
+//CHange css of div so it looks a bit better
+//make font size of general information bigger
