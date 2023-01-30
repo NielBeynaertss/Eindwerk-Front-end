@@ -26,7 +26,7 @@
     </button>
 
     <div>
-        <div id="acc" class="invis">
+        <div id="acc" class="invis firstFilter">
             <i class="fa-solid fa-house"></i> Accomodations <i class="fa-solid fa-hotel"></i>
             <div>
                 <label><input type="checkbox" value="accommodation"> All</label>
@@ -40,7 +40,7 @@
             </div>
         </div>
 
-        <div id="cat" class="invis">
+        <div id="cat" class="invis firstFilter">
             <i class="fa-solid fa-utensils"></i> Catering <i class="fa-solid fa-burger"></i>
             <div>
                 <label><input type="checkbox" value="catering"> All</label>
@@ -58,7 +58,7 @@
             </div>
         </div>
 
-        <div id="hea" class="invis">
+        <div id="hea" class="invis firstFilter">
             <i class="fa-solid fa-truck-medical"></i> Healthcare <i class="fa-solid fa-tooth"></i>
             <div>
                 <label><input type="checkbox" value="healthcare"> All</label>
@@ -68,7 +68,7 @@
             </div>
         </div>
 
-        <div id="par" class="invis">
+        <div id="par" class="invis firstFilter">
             <i class="fa-solid fa-square-parking"></i> Parking <i class="fa-solid fa-motorcycle"></i>
             <div>
                 <label><input type="checkbox" value="parking"> All</label>
@@ -78,7 +78,7 @@
             </div>
         </div>
 
-        <div id="ren" class="invis">
+        <div id="ren" class="invis firstFilter">
             <i class="fa-solid fa-car"></i> Rental <i class="fa-solid fa-bicycle"></i>
             <div>
                 <label><input type="checkbox" value="rental"> All</label>
@@ -89,7 +89,7 @@
             </div>
         </div>
 
-        <div id="tra" class="invis">
+        <div id="tra" class="invis firstFilter">
             <i class="fa-solid fa-train-subway"></i> Transport <i class="fa-solid fa-plane"></i>
             <div>
                 <label><input type="checkbox" value="airport"> Airport</label>
@@ -107,6 +107,34 @@
 
     <div id="rad" class="invis">
         <input type="number" id="radius" placeholder="Max distance (in meter)">
+    </div>
+
+    <div id="filter2Acc" class="invis secondFilter">
+        Extra options for accommodation!
+        <div>
+            <label><input type="checkbox" value="smoking"> Smoking allowed</label>
+            <label><input type="checkbox" value="toilets"> Toilets</label>
+            <label><input type="checkbox" value="swimming_pool"> Swimming Pool</label>
+            <label><input type="checkbox" value="dogs"> Dogs allowed</label>
+            <label><input type="checkbox" value="air_conditioning"> Air Conditioning</label>
+            <label><input type="checkbox" value="changing_table"> Changing Table</label>
+        </div>
+    </div>
+    
+    <div id="filter2Cat" class="invis secondFilter">
+        Extra options for catering!
+        <div>
+            <label><input type="checkbox" value="smoking"> Smoking allowed</label>
+            <!-- wheelchairs, internet access-->
+            <label><input type="checkbox" value="outdoor_seating"> Outdoor Seating</label>
+            <label><input type="checkbox" value="takeaway"> Takeaway</label>
+            <label><input type="checkbox" value="delivery"> Delivery</label>
+        </div>
+    </div>
+
+    <div id="filterOpt" class="invis optFilter">
+        Only show results that contain these filters:
+            <label><input type="checkbox" value="yes"></label>
     </div>
 
     <button id="res" class="invis">GET RESULTS</button>

@@ -36,12 +36,16 @@ function showDropdown() {
     let tra = document.getElementById("tra");
     let rad = document.getElementById("rad");
     let res = document.getElementById("res");
-        
+    let filt2Acc = document.getElementById("filter2Acc");
+    let filt2Cat =  document.getElementById("filter2Cat");
+    let filtOpt = document.getElementById("filterOpt");
     
     res.style.display = "block"
     rad.style.display = "block"
     if (options === "acco") {
-        extraOptAcc.style.display = "block"
+        filt2Acc.style.display = "block";
+        filt2Cat.style.display = "none";
+        filtOpt.style.display = "block";
         acc.style.display = "block";
         cat.style.display = "none";
         hea.style.display = "none";
@@ -49,6 +53,9 @@ function showDropdown() {
         ren.style.display = "none";
         tra.style.display = "none";
     } else if (options === "cate") {
+        filt2Acc.style.display = "none";
+        filt2Cat.style.display = "block";
+        filtOpt.style.display = "block";
         acc.style.display = "none";
         cat.style.display = "block";
         hea.style.display = "none";
@@ -56,6 +63,9 @@ function showDropdown() {
         ren.style.display = "none";
         tra.style.display = "none";
     } else if (options === "heal") {
+        filt2Acc.style.display = "none";
+        filt2Cat.style.display = "none";
+        filtOpt.style.display = "none";
         acc.style.display = "none";
         cat.style.display = "none";
         hea.style.display = "block";
@@ -63,6 +73,9 @@ function showDropdown() {
         ren.style.display = "none";
         tra.style.display = "none";
     } else if (options === "park") {
+        filt2Acc.style.display = "none";
+        filt2Cat.style.display = "none";
+        filtOpt.style.display = "none";
         acc.style.display = "none";
         cat.style.display = "none";
         hea.style.display = "none";
@@ -70,6 +83,9 @@ function showDropdown() {
         ren.style.display = "none";
         tra.style.display = "none";
     } else if (options === "rent") {
+        filt2Acc.style.display = "none";
+        filt2Cat.style.display = "none";
+        filtOpt.style.display = "none";
         acc.style.display = "none";
         cat.style.display = "none";
         hea.style.display = "none";
@@ -77,6 +93,9 @@ function showDropdown() {
         ren.style.display = "block";
         tra.style.display = "none";
     } else if (options === "tran") {
+        filt2Acc.style.display = "none";
+        filt2Cat.style.display = "none";
+        filtOpt.style.display = "none";
         acc.style.display = "none";
         cat.style.display = "none";
         hea.style.display = "none";
@@ -98,7 +117,7 @@ function showDropdown() {
 //It creates a new URL with all the variable inputs given by the user and fetches an api from that
 //Then, it takes the elements it needs to create the template we can use as the result
 function checkboxToURL(coordinates) {
-    let checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    let checkboxes = document.querySelectorAll('.firstFilter input[type="checkbox"]');
     let filtersWith = '';
     for (let i = 0; i <checkboxes.length; i++) {
         if (checkboxes[i].checked) {
@@ -106,39 +125,109 @@ function checkboxToURL(coordinates) {
             filtersWith += checkboxes[i].value + ','
         }
     }
+
+    let checkboxes2 = document.querySelectorAll('.secondFilter input[type="checkbox"]');
+    let filters2With = '';
+    for (let i = 0; i <checkboxes2.length; i++) {
+        if (checkboxes2[i].checked) {
+            // If it is, add its value to the values array
+            filters2With += checkboxes2[i].value + ','
+        }
+    }
+
+    let checkbox3 = document.querySelector('.optFilter input[type="checkbox"]');
+    let opt = 'no';
+    if (checkbox3.checked) {
+        opt = "yes"
+    }
+
+    
     let filters = filtersWith.substring(0, filtersWith.length - 1);
+    let filters2 = filters2With.substring(0, filters2With.length - 1);
     let radius = document.getElementById('radius').value;
-    console.log(`filters: ${filters} & coordinates: ${coordinates} & radius ${radius}`);
+    //console.log(`filters: ${filters} & coordinates: ${coordinates} & radius ${radius}`);
     let geoapifyURL = `https://api.geoapify.com/v2/places?categories=${filters}&filter=circle:${coordinates},${radius}&limit=20&apiKey=2e37c02459684f11b9472b5ec244d1e3`
     console.log(geoapifyURL);
     fetch(geoapifyURL)
     .then(response => response.json())
     .then(data => {
     // extract the data you need from the response
-        let div = document.getElementById("results");
-        div.innerHTML = '';
-        data.features.forEach((item, index) => {
-            let distance = getDistance(coordinates, item.properties.lat, item.properties.lon)
-            let conditions = item.properties.categories
-            console.log(conditions)
-            console.log(distance)
-            let place_id = item.properties.place_id
-            let detailURL = `https://api.geoapify.com/v2/place-details?id=${place_id}&apiKey=51d3185c0772406c92f1907efa83798e`
-            console.log(detailURL)
-            let template = `<div>
-                            <h2>${item.properties.name}</h2>
-                            <p>Adress: ${item.properties.address_line2}</p>
-                            <p>Distance to stadium: ${distance}</p>
-                            <button id="button-details-${index}" onclick="fetchPlaceDetails('${detailURL}', ${index}, '${conditions}')">Details</button>
-                            <button class="invis" id="hide-details-${index}" onclick="hideDetails(${index})">Hide details</button>
-                            <div class="box invis" id="place-details-${index}"></div>
-                            </div>`;
-            div.innerHTML += template;
-        });
+            let div = document.getElementById("results");
+            div.innerHTML = '';
+            data.features.forEach((item, index) => {
+                let place_id = item.properties.place_id
+                let checkURL = `https://api.geoapify.com/v2/place-details?id=${place_id}&apiKey=b952ab1bdc9e4852942f8752e2155d9b`
+                detailsCheck(checkURL, filters2, opt)
+                .then(filterCheck => {
+                if (filterCheck == true) {
+                    let distance = getDistance(coordinates, item.properties.lat, item.properties.lon)
+                    let conditions = item.properties.categories
+                    //console.log(conditions)
+                    //console.log(distance)
+                    let detailURL = `https://api.geoapify.com/v2/place-details?id=${place_id}&apiKey=51d3185c0772406c92f1907efa83798e`
+                    //console.log(detailURL)
+                    let template = `<div>
+                                    <h2>${item.properties.name}</h2>
+                                    <p>Adress: ${item.properties.address_line2}</p>
+                                    <p>Distance to stadium: ${distance}</p>
+                                    <button id="button-details-${index}" onclick="fetchPlaceDetails('${detailURL}', ${index}, '${conditions}')">Details</button>
+                                    <button class="invis" id="hide-details-${index}" onclick="hideDetails(${index})">Hide details</button>
+                                    <div class="box invis" id="place-details-${index}"></div>
+                                    </div>`;
+                    div.innerHTML += template;
+                }
+                if (div.innerHTML == '') {
+                    let template = `<div>
+                                    <p>There are no results matching your requirements. Increasing the radius and removing some filters may help in finding a result!</p>
+                                    </div>`;
+                    div.innerHTML += template;
+                }
+            });
+        })
+        
     })
     .catch(error => {
         console.error(error);
     });
+}
+
+function detailsCheck(url, filters, opt) {
+    console.log(url)
+    console.log(opt)
+    return fetch(url)
+    .then(response => response.json())
+    .then(data => {
+        let check = data.features[0].properties
+        let filterArray = filters.split(",");
+        if (opt == "yes") {
+            if ("facilities" in check) {
+                console.log(check.facilities)
+                let facilities = check.facilities;
+                let allTrue = filterArray.every(item => item in facilities && facilities[item]);
+                if (allTrue) {
+                    return true
+                }
+                else {
+                    return false
+                }
+            } else {
+                return false;
+            }
+        } else {
+            if ("facilities" in check) {
+                let facilities = check.facilities;
+                for (let key in facilities) {
+                  console.log(facilities[key]);
+                  if (filterArray.includes(key) && facilities[key] === false) {
+                    return false;
+                  }
+                }
+                return true;
+              } else {
+                return true;
+              }
+        }
+    })
 }
 
 //This function calculates the direct distance between the stadium and the place of interest
@@ -180,7 +269,6 @@ function checkConditions(info) {
 //General information
     let int = ''
     if (info.includes("internet_access")) {
-        console.log("hello world")
         if (info.includes("internet_access.free")) {
             
             int = `<p> <i class="fa-solid fa-globe"></i> Free internet! </p>`
@@ -355,17 +443,17 @@ function checkConditions(info) {
 //It creates a new template containing some important information if you're more interested in the place
 function fetchPlaceDetails(url, index, conditions) {
     console.log(url)
-    console.log(conditions)
+    //console.log(conditions)
     fetch(url)
     .then(response => response.json())
     .then(data => {
         let placeDetails = data.features[0].properties;
         let info = conditions.split(",")
-        console.log(info)
+        //console.log(info)
         let moreDetails = checkConditions(info);
-        console.log(moreDetails)
+        //console.log(moreDetails)
         if ("contact" in placeDetails) {
-            console.log("IT WORKS")
+            //console.log("IT WORKS")
             phoneTemplate = `<p> Phone: ${placeDetails.contact.phone}</p>`
         }
         else {
@@ -373,14 +461,14 @@ function fetchPlaceDetails(url, index, conditions) {
         }
 
         if ("website" in placeDetails) {
-            console.log("IT WORKS TOO")
+            //console.log("IT WORKS TOO")
             websiteTemplate = `<p> Website: <a href="${placeDetails.website}" target="_blank">${placeDetails.website}</a></p>`
         }
         else {
             websiteTemplate = `<p> No website given</p>`
         }
         if ("opening_hours" in placeDetails) {
-            console.log("IT WORKS 3")
+            //console.log("IT WORKS 3")
             hoursTemplate = `<p> Opening hours: ${placeDetails.opening_hours}</p>`
         }
         else {
@@ -460,3 +548,11 @@ function fixtureToMenu() {
 //CHange css of div so it looks a bit better
 //make font size of general information bigger
 //Options need to come with the final result
+
+//Title needs to tell what the result is
+
+//Results based on filters with places details?
+
+//Option if filters are needed or not
+
+//Display page if it has no result!
