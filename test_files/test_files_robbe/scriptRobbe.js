@@ -571,3 +571,4 @@ function fixtureToMenu() {
 //Title needs to tell what the result is
 //More information in details?
 //make details customizable OR add a new button where you can look at the filters you've set
+//Turn to typescript
