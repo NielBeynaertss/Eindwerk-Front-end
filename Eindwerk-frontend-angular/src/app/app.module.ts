@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { FaqComponent } from './faq/faq.component';
 import { ContactComponent } from './contact/contact.component';
 import { FixturesComponent } from './fixtures/fixtures.component';
+import { LeaguesComponent } from './leagues/leagues.component';
 
 @NgModule({
   declarations: [
@@ -18,11 +20,13 @@ import { FixturesComponent } from './fixtures/fixtures.component';
     HomeComponent,
     FaqComponent,
     ContactComponent,
-    FixturesComponent
+    FixturesComponent,
+    LeaguesComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule 
   ],
   providers: [],
   bootstrap: [AppComponent]

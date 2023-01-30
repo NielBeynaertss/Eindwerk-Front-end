@@ -1,0 +1,18 @@
+.card{
+    margin: 30px;
+    box-shadow: 0 0 15px 4px #818181;
+    width: 18rem;
+}
+.card-title{
+    padding-top: 10px;
+}
+.card_position{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.card_img_style{
+    height: 300px;
+}
+
+
