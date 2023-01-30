@@ -11,6 +11,7 @@ import { FaqComponent } from './faq/faq.component';
 import { ContactComponent } from './contact/contact.component';
 import { FixturesComponent } from './fixtures/fixtures.component';
 import { LeaguesComponent } from './leagues/leagues.component';
+import { ResultsComponent } from './results/results.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { LeaguesComponent } from './leagues/leagues.component';
     FaqComponent,
     ContactComponent,
     FixturesComponent,
-    LeaguesComponent
+    LeaguesComponent,
+    ResultsComponent
   ],
   imports: [
     BrowserModule,
