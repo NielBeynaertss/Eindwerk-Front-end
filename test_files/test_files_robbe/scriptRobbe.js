@@ -39,6 +39,7 @@ function showDropdown() {
     let filt2Acc = document.getElementById("filter2Acc");
     let filt2Cat =  document.getElementById("filter2Cat");
     let filtOpt = document.getElementById("filterOpt");
+    let filt2Whe = document.getElementById("filter2Whe");
     
     res.style.display = "block"
     rad.style.display = "block"
@@ -46,6 +47,7 @@ function showDropdown() {
         filt2Acc.style.display = "block";
         filt2Cat.style.display = "none";
         filtOpt.style.display = "block";
+        filt2Whe.style.display = "none";
         acc.style.display = "block";
         cat.style.display = "none";
         hea.style.display = "none";
@@ -56,6 +58,7 @@ function showDropdown() {
         filt2Acc.style.display = "none";
         filt2Cat.style.display = "block";
         filtOpt.style.display = "block";
+        filt2Whe.style.display = "none";
         acc.style.display = "none";
         cat.style.display = "block";
         hea.style.display = "none";
@@ -66,6 +69,7 @@ function showDropdown() {
         filt2Acc.style.display = "none";
         filt2Cat.style.display = "none";
         filtOpt.style.display = "none";
+        filt2Whe.style.display = "none";
         acc.style.display = "none";
         cat.style.display = "none";
         hea.style.display = "block";
@@ -76,6 +80,7 @@ function showDropdown() {
         filt2Acc.style.display = "none";
         filt2Cat.style.display = "none";
         filtOpt.style.display = "none";
+        filt2Whe.style.display = "block";
         acc.style.display = "none";
         cat.style.display = "none";
         hea.style.display = "none";
@@ -86,6 +91,7 @@ function showDropdown() {
         filt2Acc.style.display = "none";
         filt2Cat.style.display = "none";
         filtOpt.style.display = "none";
+        filt2Whe.style.display = "none";
         acc.style.display = "none";
         cat.style.display = "none";
         hea.style.display = "none";
@@ -96,6 +102,7 @@ function showDropdown() {
         filt2Acc.style.display = "none";
         filt2Cat.style.display = "none";
         filtOpt.style.display = "none";
+        filt2Whe.style.display = "block";
         acc.style.display = "none";
         cat.style.display = "none";
         hea.style.display = "none";
@@ -147,13 +154,23 @@ function checkboxToURL(coordinates) {
     let radius = document.getElementById('radius').value;
     //console.log(`filters: ${filters} & coordinates: ${coordinates} & radius ${radius}`);
     let geoapifyURL = `https://api.geoapify.com/v2/places?categories=${filters}&filter=circle:${coordinates},${radius}&limit=20&apiKey=2e37c02459684f11b9472b5ec244d1e3`
-    console.log(geoapifyURL);
+    //console.log(geoapifyURL);
     fetch(geoapifyURL)
     .then(response => response.json())
     .then(data => {
     // extract the data you need from the response
-            let div = document.getElementById("results");
-            div.innerHTML = '';
+        let results = data.features
+        //console.log(results);
+        let div = document.getElementById("results");
+        div.innerHTML = '';
+        if (results.length == 0) {
+            let template = `<div>
+                                    <p>There are no results! Maybe increasing your radius will help getting a result</p>
+                                    </div>`;
+                    div.innerHTML += template;
+        }
+        else {
+            
             data.features.forEach((item, index) => {
                 let place_id = item.properties.place_id
                 let checkURL = `https://api.geoapify.com/v2/place-details?id=${place_id}&apiKey=b952ab1bdc9e4852942f8752e2155d9b`
@@ -165,7 +182,7 @@ function checkboxToURL(coordinates) {
                     //console.log(conditions)
                     //console.log(distance)
                     let detailURL = `https://api.geoapify.com/v2/place-details?id=${place_id}&apiKey=51d3185c0772406c92f1907efa83798e`
-                    //console.log(detailURL)
+                    console.log(detailURL)
                     let template = `<div>
                                     <h2>${item.properties.name}</h2>
                                     <p>Adress: ${item.properties.address_line2}</p>
@@ -178,22 +195,27 @@ function checkboxToURL(coordinates) {
                 }
                 if (div.innerHTML == '') {
                     let template = `<div>
-                                    <p>There are no results matching your requirements. Increasing the radius and removing some filters may help in finding a result!</p>
+                                    <p>There are no results matching your requirements. Please increase the radius or remove some filters to get a result!</p>
                                     </div>`;
                     div.innerHTML += template;
                 }
             });
         })
-        
+    }
     })
     .catch(error => {
+        const input = document.getElementById('rad');
+        if (!input || !input.value) {
+            alert("Please fill in the radius")
+            return;
+          }
         console.error(error);
     });
 }
 
 function detailsCheck(url, filters, opt) {
-    console.log(url)
-    console.log(opt)
+    //console.log(url)
+    //console.log(opt)
     return fetch(url)
     .then(response => response.json())
     .then(data => {
@@ -201,7 +223,7 @@ function detailsCheck(url, filters, opt) {
         let filterArray = filters.split(",");
         if (opt == "yes") {
             if ("facilities" in check) {
-                console.log(check.facilities)
+                //console.log(check.facilities)
                 let facilities = check.facilities;
                 let allTrue = filterArray.every(item => item in facilities && facilities[item]);
                 if (allTrue) {
@@ -216,8 +238,9 @@ function detailsCheck(url, filters, opt) {
         } else {
             if ("facilities" in check) {
                 let facilities = check.facilities;
+                console.log(facilities)
                 for (let key in facilities) {
-                  console.log(facilities[key]);
+                  //console.log(facilities[key]);
                   if (filterArray.includes(key) && facilities[key] === false) {
                     return false;
                   }
@@ -542,17 +565,9 @@ function fixtureToMenu() {
 //Entertainment?
 //Tourism?
 
-//More information in details?
 
-//Hide button?
-//CHange css of div so it looks a bit better
-//make font size of general information bigger
-//Options need to come with the final result
 
+//to do:
 //Title needs to tell what the result is
-
-//Results based on filters with places details?
-
-//Option if filters are needed or not
-
-//Display page if it has no result!
+//More information in details?
+//make details customizable OR add a new button where you can look at the filters you've set
