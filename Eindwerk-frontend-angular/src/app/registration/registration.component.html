@@ -1,0 +1,42 @@
+<div class="row">
+    <div class="col login">
+      <div class="col-4 offset-4 mt-1 mb-5">
+    <img src="https://www.syntra-limburg.be/themes/custom/sassy/assets/images/syntra/logo.svg" class="img-fluid" alt="logo" width="150px">
+  </div>
+        <h1 class="main">Please register</h1>
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Username</label>
+              <input type="text" class="form-control" [(ngModel)]="name">
+             
+             
+            </div>
+  
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Email</label>
+              <input type="text" class="form-control" [(ngModel)]="email">
+             
+             
+            </div>
+  
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Password</label>
+              <input type="password" class="form-control" [(ngModel)]="password">
+              
+            </div>
+  
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Profile picture</label>
+              <!-- input file type onchange acces method and pass the event  -->
+              <input type="file" class="form-control" (change)="uploadFile($event)">
+              
+  
+               
+  
+              
+            </div>
+       
+            <button (click)="register()" type="submit" class="btn btn-primary login">Register</button>
+         
+            <a class="register" routerLink="/login" routerLinkActive="active">Login</a>
+    </div>
+  </div>
