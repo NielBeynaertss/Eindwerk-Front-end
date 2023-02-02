@@ -1,0 +1,24 @@
+
+<div class="row">
+    <div class="col login">
+      <div class="col-4 offset-4 mt-1 mb-5">
+    <img src="https://www.syntra-limburg.be/themes/custom/sassy/assets/images/syntra/logo.svg" class="img-fluid" alt="logo" width="150px">
+</div>
+        <h1 class="main">welcome</h1>
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Username</label>
+              <input type="text" class="form-control" [(ngModel)]="username">
+             
+             
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Password</label>
+              <input type="password" class="form-control" [(ngModel)]="password">
+              
+            </div>
+       
+            <button (click)="login()" type="submit" class="btn btn-primary login">Login</button>
+         
+            <a class="register" routerLink="/registration" routerLinkActive="active">Register</a>
+    </div>
+</div>
