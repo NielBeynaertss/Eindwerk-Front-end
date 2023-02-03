@@ -3,7 +3,7 @@
         <img [src]="league.logo_path" alt="{{ league.name }} logo" class="card_img_style">
         <div class="card-body text-center">
             <div class="card-title">{{ league.name }}</div>
-            <a routerLink="/fixtures" (click)="fixtures(league.id)" class="btn btn-primary">Get fixtures</a>
+            <a [routerLink]="['/fixtures', league.id]" class="btn btn-primary">Get fixtures</a>
         </div>
     </div>
 </div>

@@ -573,12 +573,16 @@ function fixtureToMenu() {
 //make details customizable OR add a new button where you can look at the filters you've set
 //Turn to typescript
 
-function fixtures(id) {
-    console.log("hello world")
-    let submitButton = document.getElementById("submit-button");
-    submitButton.addEventListener("click", getFixtures(id));
-}
-
 function getFixtures(id) {
     console.log(id);
 }
+
+
+function fixtures(id) {
+    console.log("hello world, the id is " + id)
+    //let submitButton = document.getElementById("submit-button");
+    //submitButton.addEventListener("click", function() {
+    //    getFixtures(id);
+    //});
+}
+

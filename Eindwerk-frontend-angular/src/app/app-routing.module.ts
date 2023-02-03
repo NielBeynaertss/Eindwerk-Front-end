@@ -25,7 +25,7 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
-    path: 'fixtures',
+    path: 'fixtures/:id',
     component: FixturesComponent
   },
   {
