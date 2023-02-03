@@ -1,0 +1,32 @@
+<main>
+  <div class="container-sm">
+    <div class="row">
+      <div class="col login">
+        <div class="col-4 offset-4 mt-1 mb-5">
+    </div>
+          <h1 class="main text-light">Please register</h1>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label text-light">Username</label>
+                <input type="text" class="form-control" [(ngModel)]="name">
+              </div>
+    
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label text-light">Email</label>
+                <input type="text" class="form-control" [(ngModel)]="email">
+              
+              
+              </div>
+    
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label text-light">Password</label>
+                <input type="password" class="form-control" [(ngModel)]="password">
+
+              </div>
+        
+              <button (click)="register()" type="submit" class="btn btn-primary login text-light">Register</button>
+          
+              <a class="register" routerLink="/" routerLinkActive="active">Login</a>
+      </div>
+    </div>
+  </div>
+</main>
