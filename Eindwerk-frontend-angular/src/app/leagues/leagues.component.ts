@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-declare function fixtures(id: number): any;
-
 @Component({
   selector: 'app-leagues',
   templateUrl: './leagues.component.html',
@@ -19,10 +17,6 @@ export class LeaguesComponent {
     this.http.get(url).subscribe(data => {
       this.leagues = data;
     });
-  }
-
-  fixtures(id: number) {
-    fixtures(id)
   }
 }
 
