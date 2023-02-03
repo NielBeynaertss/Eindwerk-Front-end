@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
-import { ChatService } from '../chat.service';
+import { ProfileService } from '../profile.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -11,20 +11,13 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class SecureComponent {
 
-  _messages: any;
   userId: any;
   username: any;
-  userQuote: string;
-  profile: any;
-  _emoticons: any;
-  showEmoticons: boolean;
+
 
   constructor(private toastr: ToastrService, private authService: AuthService, private router: Router) {
     this.userId = window.localStorage.getItem('userId');
     this.username = window.localStorage.getItem('username');
-    this.profile = window.localStorage.getItem('profile') ? window.localStorage.getItem('profile') : 'assets/219988.png';
-    this.userQuote = '';
-    this.showEmoticons = false;
   }
 
   logout() {

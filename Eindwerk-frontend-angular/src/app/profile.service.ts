@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 @Injectable({
   providedIn: 'root'
 })
-export class ChatService {
+export class ProfileService {
 
 
   url: string = 'http://127.0.0.1:8000/api';

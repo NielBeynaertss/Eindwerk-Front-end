@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ChatService } from '../chat.service';
+import { ProfileService } from '../profile.service';
 
 @Component({
   selector: 'app-login',
@@ -12,13 +12,13 @@ export class LoginComponent {
   username: string;
   password: string;
 
-  constructor(private chatService: ChatService, private router: Router)  { 
+  constructor(private profileService: ProfileService, private router: Router)  { 
     this.username = '';
     this.password = '';
   }
 
   login() {
-   this.chatService.getUsersFromApi(this.username, this.password);
+   this.profileService.getUsersFromApi(this.username, this.password);
   }
 
 
