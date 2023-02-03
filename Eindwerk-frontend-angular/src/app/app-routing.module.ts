@@ -11,7 +11,7 @@ import { SecureComponent } from './secure/secure.component';
 
 const routes: Routes = [
   {
-    path: 'secure', component: SecureComponent,
+    path: 'secure', component: SecureComponent, canActivate: [AuthGuard]
   },
   {
     path: '', component: LoginComponent
