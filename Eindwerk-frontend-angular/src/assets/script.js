@@ -574,11 +574,15 @@ function fixtureToMenu() {
 //Turn to typescript
 
 function getFixtures(id) {
-    console.log(id);
+    
     let date1 = document.getElementById("start-date").value;
     let date2 = document.getElementById("end-date").value;
     console.log(date1 + ' and ' + date2)
-    let urlFixtures = `https://soccer.sportmonks.com/api/v2.0/fixtures/between/${date1}/${date2}?api_token=1GoW5Zal0tKjHcvovZTHNVty1B35cuZHol8sz9TPNgwIyl22350MGOEOGdn5&league_id=${id}`
+    let leagueID = ``
+    if (id != NaN) {
+        leagueID = `&league_id=${id}`
+    }
+    let urlFixtures = `https://soccer.sportmonks.com/api/v2.0/fixtures/between/${date1}/${date2}?api_token=1GoW5Zal0tKjHcvovZTHNVty1B35cuZHol8sz9TPNgwIyl22350MGOEOGdn5${leagueID}`
     console.log(urlFixtures);
     fetch(urlFixtures)
     .then(response => {
