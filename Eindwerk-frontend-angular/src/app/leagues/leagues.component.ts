@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+declare function fixtures(id: number): any;
+
 @Component({
   selector: 'app-leagues',
   templateUrl: './leagues.component.html',
@@ -19,5 +21,8 @@ export class LeaguesComponent {
     });
   }
 
+  fixtures(id: number) {
+    fixtures(id)
+  }
 }
 
