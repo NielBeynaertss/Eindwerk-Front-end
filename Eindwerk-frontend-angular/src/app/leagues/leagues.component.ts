@@ -18,6 +18,5 @@ export class LeaguesComponent {
       this.leagues = data;
     });
   }
-
 }
 
