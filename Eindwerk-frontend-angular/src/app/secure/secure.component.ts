@@ -11,7 +11,6 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class SecureComponent {
 
-  newChat: string;
   _messages: any;
   userId: any;
   username: any;
@@ -20,8 +19,7 @@ export class SecureComponent {
   _emoticons: any;
   showEmoticons: boolean;
 
-  constructor(private toastr: ToastrService, private authService: AuthService, private router: Router, private chatService: ChatService) {
-    this.newChat = '';
+  constructor(private toastr: ToastrService, private authService: AuthService, private router: Router) {
     this.userId = window.localStorage.getItem('userId');
     this.username = window.localStorage.getItem('username');
     this.profile = window.localStorage.getItem('profile') ? window.localStorage.getItem('profile') : 'assets/219988.png';
