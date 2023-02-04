@@ -1,6 +1,5 @@
-
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 declare function getFixtures(id: number): any;
 
@@ -12,15 +11,26 @@ declare function getFixtures(id: number): any;
 export class FixturesComponent implements OnInit {
   id: number = 0;
   
-  constructor(private route: ActivatedRoute) {}
+  constructor(private router: Router, private route: ActivatedRoute) {}
   
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.id = +params['id'];
-    });
+  this.route.params.subscribe(params => {
+  this.id = +params['id'];
+  });
+  // expose the component instance to the global scope
+  }
+  
+  getFixtures(id: number) {
+  getFixtures(id)
   }
 
-  getFixtures(id: number) {
-    getFixtures(id)
+
+  navigateToResults() {
+    this.router.navigate(['/results']);
   }
-}
+  }
+  
+  
+  
+  
+  

@@ -613,17 +613,18 @@ function getFixtures(id) {
             let fixtureElement = 
             ` 
                 <div class="row fixtures_card">
-                  <div class="col fixtures_cards_col">
-                    <img src="${homeTeamLogo}" class="fixtures_cards_img"></img><br>
-                    <h2 class="text-dark">${homeTeamName}</h2>
-                  </div>
-                  <div class="col fixtures_cards_vs">
-                    <h2 class="text-dark">vs</h2>
-                  </div>
-                  <div class="col fixtures_cards_col">
-                    <img src="${awayTeamLogo}" class="fixtures_cards_img"></img><br>
-                    <h2 class="text-dark">${awayTeamName}</h2>
-                  </div>
+                    <div class="col fixtures_cards_col">
+                        <img src="${homeTeamLogo}" class="fixtures_cards_img"></img><br>
+                        <h2 class="text-dark">${homeTeamName}</h2>
+                    </div>
+                    <div class="col fixtures_cards_vs">
+                        <h2 class="text-dark">vs</h2>
+                    </div>
+                    <div class="col fixtures_cards_col">
+                        <img src="${awayTeamLogo}" class="fixtures_cards_img"></img><br>
+                        <h2 class="text-dark">${awayTeamName}</h2>
+                    </div>
+                    <a [routerLink]="['/results']" class="btn btn-primary">Go to results</a>
                 </div>
             `;
             fixturecontainer.innerHTML += fixtureElement;
