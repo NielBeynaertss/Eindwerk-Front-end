@@ -13,3 +13,28 @@ hr{/*Changes color of the Horizontal rule(hr)*/
 main{
     padding-bottom: 150px;
 }
+
+.invis {
+    display: none;
+}
+.fixtures_card{
+    display: flex;
+    background-color: rgb(112, 112, 112);
+    border-radius: 15px;
+    margin: 20px 0;
+}
+.fixtures_cards_col{
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+}
+.fixtures_cards_img{
+    max-width: 300px;
+    padding: 10px;
+}
+.fixtures_cards_vs{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
