@@ -1,17 +1,28 @@
-//Adds events to the buttons so they call up the right function when clicked
-document.getElementById("finalAPI").addEventListener("click", fixtureToMenu);
-document.getElementById('showDropdown').addEventListener("click", showDropdown)
-
 //This function fetches the football api for a certain fixture, takes the venue id from it
 //then it fetches the api again so it can get the coordinates from it and return it
-function fetchFootballAPI() {
-    return fetch('https://soccer.sportmonks.com/api/v2.0/fixtures/18531230?api_token=1GoW5Zal0tKjHcvovZTHNVty1B35cuZHol8sz9TPNgwIyl22350MGOEOGdn5')
+function fetchFootballAPI(id) {
+    return fetch(`https://soccer.sportmonks.com/api/v2.0/fixtures/${id}?api_token=1GoW5Zal0tKjHcvovZTHNVty1B35cuZHol8sz9TPNgwIyl22350MGOEOGdn5`)
     .then(response => response.json())
     .then(data => {
         venue_id = data.data.venue_id;
+        console.log(`https://soccer.sportmonks.com/api/v2.0/venues/${venue_id}?api_token=1GoW5Zal0tKjHcvovZTHNVty1B35cuZHol8sz9TPNgwIyl22350MGOEOGdn5`)
         return fetch(`https://soccer.sportmonks.com/api/v2.0/venues/${venue_id}?api_token=1GoW5Zal0tKjHcvovZTHNVty1B35cuZHol8sz9TPNgwIyl22350MGOEOGdn5`)
             .then(response => response.json())
             .then(data => {
+                let cityDiv = document.getElementById('showCity');
+                let cityTemplate = 
+                `
+                <div class="row fixtures_card fixtures_cards_vs" >
+                    <h1>Venue Details</h1>
+                    <p>Venue Name: ${data.data.name}</p>
+                    <p>City: ${data.data.city}</p>
+                    <p>Address: ${data.data.address}</p>
+                    <p>Capacity: ${data.data.capacity} seats</p>
+                    <img src="${data.data.image_path}" class="fixtures_cards_img"></img><br>
+                </div>
+                `
+                cityDiv.innerHTML += cityTemplate;
+
                 let wrongCoordinates = data.data.coordinates
                 let [lat, lon] = wrongCoordinates.split(',');
                 let coordinates = `${lon},${lat}`
@@ -238,7 +249,7 @@ function detailsCheck(url, filters, opt) {
         } else {
             if ("facilities" in check) {
                 let facilities = check.facilities;
-                console.log(facilities)
+                //console.log(facilities)
                 for (let key in facilities) {
                   //console.log(facilities[key]);
                   if (filterArray.includes(key) && facilities[key] === false) {
@@ -524,19 +535,32 @@ function hideDetails(index) {
 
 //This function calles up the football api-function, then changes the display state of the search function
 //It also links a function with the coordinates to a function
-function fixtureToMenu() {
-    fetchFootballAPI()
+function fixtureToMenu(id) {
+    let container1 = document.getElementById('container1');
+    let container2 = document.getElementById('container2');
+    container1.style.display = "none";
+    container2.style.display = "block";
+
+    let gameDiv = document.getElementById('showGame');
+    gameDiv.innerHTML = ''
+    let fixtureCard = document.getElementById(`fixture-card-${id}`);
+    let clone = fixtureCard.cloneNode(true);
+    let button = clone.querySelector(`#button-results-${id}`);
+    button.remove();    
+    //console.log(clone);
+
+    gameDiv.appendChild(clone);
+
+    fetchFootballAPI(id)
     .then(coordinates => {
         finalCoordinates = coordinates;
 
         let button = document.getElementById('showDropdown')
         let opt = document.getElementById('mainMenu')
         let resultsButton = document.getElementById('res')
-        let fnlAPI = document.getElementById("finalAPI")
         
         opt.style.display = "block"
         button.style.display = "block"
-        fnlAPI.style.display = "none"
         
 
         //dit kan eventueel terug naar boven
@@ -549,6 +573,13 @@ function fixtureToMenu() {
     });
 }
 
+
+function goBack() {
+    let container1 = document.getElementById('container1');
+    let container2 = document.getElementById('container2');
+    container1.style.display = "block";
+    container2.style.display = "none";
+}
 //Categories it needs to check:
 //Accomodation
 //Catering
@@ -571,7 +602,6 @@ function fixtureToMenu() {
 //Title needs to tell what the result is
 //More information in details?
 //make details customizable OR add a new button where you can look at the filters you've set
-//Turn to typescript
 
 function getFixtures(id) {
     console.log(id);
@@ -600,31 +630,34 @@ function getFixtures(id) {
         if (fixtureLeagueID == id || isNaN(id)) {
         let fixture_hometeam_id = fixture.localteam_id;
         let urlHomeTeam = `https://soccer.sportmonks.com/api/v2.0/teams/${fixture_hometeam_id}?api_token=XknJJDTtdX0z1nFtbPxt1C29IestIRI7izPt9gtzTFZP7JDZufu6nAmW8F70`;
-        let urlAwayTeam = `https://soccer.sportmonks.com/api/v2.0/teams/${fixture.visitorteam_id}?api_token=XknJJDTtdX0z1nFtbPxt1C29IestIRI7izPt9gtzTFZP7JDZufu6nAmW8F70`;
+        let urlAwayTeam = `https://soccer.sportmonks.com/api/v2.0/teams/${fixture.visitorteam_id}?api_token=zXfWlxKKH8Fdyrtnc8mnISyho6CjXaXEX2jiRpUfa9UxSZWomwpt5fQhRh9k`;
+        console.log(urlHomeTeam);
         //Promise all
         Promise.all([fetch(urlHomeTeam),fetch(urlAwayTeam)])
           .then(([res1, res2]) => Promise.all([res1.json(), res2.json()]))
           .then(([data1, data2]) => {
-            //console.log(data1, data2);
+            console.log(data1, data2);
             let homeTeamName = data1.data.name;
             let awayTeamName = data2.data.name;
             let homeTeamLogo = data1.data.logo_path;
             let awayTeamLogo = data2.data.logo_path;
+            let fixtureID = fixture.id;
+
             let fixtureElement = 
             ` 
-                <div class="row fixtures_card">
-                    <div class="col fixtures_cards_col">
-                        <img src="${homeTeamLogo}" class="fixtures_cards_img"></img><br>
-                        <h2 class="text-dark">${homeTeamName}</h2>
-                    </div>
-                    <div class="col fixtures_cards_vs">
-                        <h2 class="text-dark">vs</h2>
-                    </div>
-                    <div class="col fixtures_cards_col">
-                        <img src="${awayTeamLogo}" class="fixtures_cards_img"></img><br>
-                        <h2 class="text-dark">${awayTeamName}</h2>
-                    </div>
-                    <a [routerLink]="['/results']" class="btn btn-primary">Go to results</a>
+                <div class="row fixtures_card" id="fixture-card-${fixtureID}">
+                  <div class="col fixtures_cards_col">
+                    <img src="${homeTeamLogo}" class="fixtures_cards_img"></img><br>
+                    <h2 class="text-dark">${homeTeamName}</h2>
+                  </div>
+                  <div class="col fixtures_cards_vs">
+                    <h2 class="text-dark">vs</h2>
+                  </div>
+                  <div class="col fixtures_cards_col">
+                    <img src="${awayTeamLogo}" class="fixtures_cards_img"></img><br>
+                    <h2 class="text-dark">${awayTeamName}</h2>
+                  </div>
+                  <button id="button-results-${fixtureID}" onclick="fixtureToMenu('${fixtureID}')">Get Results!</button>
                 </div>
             `;
             fixturecontainer.innerHTML += fixtureElement;
@@ -634,7 +667,3 @@ function getFixtures(id) {
     }});
     })
 }
-
-//To do:
-//Link fixtures => results
-//add stylesheet to .js

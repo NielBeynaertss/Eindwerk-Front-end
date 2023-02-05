@@ -35,3 +35,45 @@
     align-items: center;
     justify-content: center;
 }
+
+.invis {
+    display: none;
+}
+
+.box {
+    border: solid 1px;
+    color: white;
+}
+.options{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.test_final_api_button{
+    width: 20%;
+    padding: 10px;
+    border-radius: 15px;
+    
+}
+
+.first_options_div{
+    margin: 10px;
+}
+
+.first_options{
+    padding: 10px;
+    border-radius: 15px 15px 0 0;
+}
+.first_options_search_button{
+    padding: 5px;
+}
+.main_options{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+.section_spacing{
+    margin: 20px;
+}

@@ -2,6 +2,9 @@ import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angula
 import { Router, ActivatedRoute } from '@angular/router';
 
 declare function getFixtures(id: number): any;
+declare function showDropdown(): any;
+declare function checkboxToURL(finalCoordinates: any): any;
+declare function goBack(): any;
 
 @Component({
   selector: 'app-fixtures',
@@ -24,9 +27,16 @@ export class FixturesComponent implements OnInit {
   getFixtures(id)
   }
 
+  showDropdown() {
+    showDropdown()
+  }
 
-  navigateToResults() {
-    this.router.navigate(['/results']);
+  checkboxToURL(finalCoordinates: any) {
+    checkboxToURL(finalCoordinates)
+  }
+
+  goBack() {
+    goBack()
   }
   }
   
