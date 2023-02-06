@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ProfileService } from '../profile.service';
+
 
 @Component({
   selector: 'app-leagues',
@@ -8,7 +10,10 @@ import { HttpClient } from '@angular/common/http';
 })
 export class LeaguesComponent {
 
-  constructor(private http: HttpClient) {}
+
+  constructor(private http: HttpClient, private profileService: ProfileService) {
+
+  }
 
   leagues: any;
 
@@ -18,5 +23,10 @@ export class LeaguesComponent {
       this.leagues = data;
     });
   }
+  addToFavorites(id: number) {
+    console.log('leagueID: ' + id);
+    this.profileService.addFavourites(id);
+  }
+  
 }
 

@@ -4,6 +4,7 @@
         <div class="card-body text-center">
             <div class="card-title">{{ league.name }}</div>
             <a [routerLink]="['/fixtures', league.id]" class="btn btn-primary">Get fixtures</a>
+            <button (click)="addToFavorites(league.id)">Favourites</button>
         </div>
     </div>
 </div>

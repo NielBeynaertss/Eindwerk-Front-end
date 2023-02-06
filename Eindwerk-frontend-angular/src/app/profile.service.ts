@@ -13,6 +13,34 @@ export class ProfileService {
 
   constructor(private router: Router, private toastr: ToastrService) { }
 
+  addFavourites(id: number) {
+    let userId = window.localStorage.getItem('userId'); // code to get the current logged-in user ID
+    console.log(userId);
+    console.log(JSON.stringify({
+      league_id: id,
+      user_id: userId
+    }));
+    fetch(this.url + '/favourite_fixtures', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        league_id: id,
+        user_id: userId
+      })
+    })
+      .then(response => {
+        console.log(response.status);
+        if (response.status === 201) {
+          this.toastr.success('yay', 'You have selected a favorite');
+        } else {
+          alert('already selected this league');
+        }
+      });
+  }
+  
+
 
   register(name: string, email: string, password: string) {
 

@@ -52,3 +52,24 @@ Route::post('/users', function (Request $request) {
         'message' => 'User created'
     ], 201);
 });
+
+Route::post('/favourite_fixtures', function (Request $request) {
+    $league_id = $request->input('league_id');
+    $user_id = $request->input('user_id');
+
+    if (DB::table('favourite_fixtures')->where(['league_id' => $league_id, 'user_id' => $user_id])->exists()) {
+        return response()->json([
+            'message' => 'League already exists'
+        ], 409);
+    }
+
+    DB::table('favourite_fixtures')->insert([
+        'league_id' => $league_id,
+        'user_id' => $user_id
+    ]);
+
+    return response()->json([
+        'message' => 'league stored'
+    ], 201);
+});
+
