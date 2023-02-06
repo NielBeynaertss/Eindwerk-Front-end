@@ -27,27 +27,33 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    component: HomeComponent
+    component: HomeComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'fixtures',
-    component: FixturesComponent
+    component: FixturesComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'fixtures/:id',
-    component: FixturesComponent
+    component: FixturesComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'faq',
-    component: FaqComponent
+    component: FaqComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'contact',
-    component: ContactComponent
+    component: ContactComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'results',
-    component: ResultsComponent
+    component: ResultsComponent,
+    canActivate: [AuthGuard]
   }
 ];
 
