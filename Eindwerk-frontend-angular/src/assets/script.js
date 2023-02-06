@@ -194,9 +194,14 @@ function checkboxToURL(coordinates) {
                     //console.log(conditions)
                     //console.log(distance)
                     let detailURL = `https://api.geoapify.com/v2/place-details?id=${place_id}&apiKey=51d3185c0772406c92f1907efa83798e`
-                    console.log(detailURL)
+                    console.log(detailURL);
+                    let name = ""
+                    //console.log(item.properties.name + " is the name")
+                    if (item.properties.name != undefined) {
+                        name = item.properties.name
+                    }
                     let template = `<div class="bg-secondary m-3 p-3">
-                                        <h2>${item.properties.name}</h2>
+                                        <h2>${name}</h2>
                                         <p>Adress: ${item.properties.address_line2}</p>
                                         <p>Distance to stadium: ${distance}</p>
                                         <button id="button-details-${index}" onclick="fetchPlaceDetails('${detailURL}', ${index}, '${conditions}')">Details</button>
