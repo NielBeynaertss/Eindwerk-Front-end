@@ -10,6 +10,7 @@ function fetchFootballAPI(id) {
             .then(response => response.json())
             .then(data => {
                 let cityDiv = document.getElementById('showCity');
+                cityDiv.innerHTML = ""
                 let cityTemplate = 
                 `
                 <div class="row fixtures_card fixtures_cards_vs" >
