@@ -2,7 +2,15 @@
 //then it fetches the api again so it can get the coordinates from it and return it
 function fetchFootballAPI(id) {
     return fetch(`https://soccer.sportmonks.com/api/v2.0/fixtures/${id}?api_token=1GoW5Zal0tKjHcvovZTHNVty1B35cuZHol8sz9TPNgwIyl22350MGOEOGdn5`)
-    .then(response => response.json())
+    .then(response => {
+        if (response.status === 429) {
+            // handle rate limit exceeded error
+            console.Alert('Rate limit of API exceeded');
+          }
+        else {
+        return response.json();
+        }
+    })
     .then(data => {
         venue_id = data.data.venue_id;
         console.log(`https://soccer.sportmonks.com/api/v2.0/venues/${venue_id}?api_token=1GoW5Zal0tKjHcvovZTHNVty1B35cuZHol8sz9TPNgwIyl22350MGOEOGdn5`)
@@ -194,7 +202,7 @@ function checkboxToURL(coordinates) {
                     //console.log(conditions)
                     //console.log(distance)
                     let detailURL = `https://api.geoapify.com/v2/place-details?id=${place_id}&apiKey=51d3185c0772406c92f1907efa83798e`
-                    console.log(detailURL);
+                    console.log("detailURL is " + detailURL);
                     let name = ""
                     //console.log(item.properties.name + " is the name")
                     if (item.properties.name != undefined) {
@@ -202,6 +210,7 @@ function checkboxToURL(coordinates) {
                     }
                     let template = `<div class="bg-secondary m-3 p-3">
                                         <h2>${name}</h2>
+                                        
                                         <p>Adress: ${item.properties.address_line2}</p>
                                         <p>Distance to stadium: ${distance}</p>
                                         <button id="button-details-${index}" onclick="fetchPlaceDetails('${detailURL}', ${index}, '${conditions}')">Details</button>
@@ -628,9 +637,16 @@ function getFixtures(id) {
       return response.json();
     })
     .then(data => {
-      //console.log(data)
+      //console.log(data.data)
       let fixturecontainer = document.getElementById("fixtures-container");
       fixturecontainer.innerHTML = "";
+      if (data.data.length == 0) {
+        fixturecontainer.innerHTML = `<div class="row fixtures_card" id="empty">
+                                        <h2 class="text-dark">No games were found between these dates</h2>
+                                        </div>
+                                        `;
+      }
+      
       data.data.forEach(fixture => {
         let fixtureLeagueID = fixture.league_id
         if (fixtureLeagueID == id || isNaN(id)) {
@@ -668,8 +684,17 @@ function getFixtures(id) {
             `;
             fixturecontainer.innerHTML += fixtureElement;
           })
-          
+
           .catch(error => console.log(error));
-    }});
+    }
+    console.log(fixturecontainer.innerHTML.length)
+});
+if (fixturecontainer.innerHTML == '') {
+    console.log("so it should work");
+    fixturecontainer.innerHTML = `<div class="row fixtures_card" id="empty">
+    <h2 class="text-dark">There were no games for this league between the given dates</h2>
+    </div>
+    `;
+}
     })
 }
