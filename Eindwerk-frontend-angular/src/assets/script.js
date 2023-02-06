@@ -2,12 +2,28 @@
 //then it fetches the api again so it can get the coordinates from it and return it
 function fetchFootballAPI(id) {
     return fetch(`https://soccer.sportmonks.com/api/v2.0/fixtures/${id}?api_token=1GoW5Zal0tKjHcvovZTHNVty1B35cuZHol8sz9TPNgwIyl22350MGOEOGdn5`)
-    .then(response => response.json())
+    .then(response => {
+        if (response.status === 429) {
+            // handle rate limit exceeded error
+            console.log('Rate limit of API exceeded');
+          }
+        else {
+        return response.json();
+        }
+    })
     .then(data => {
         venue_id = data.data.venue_id;
         console.log(`https://soccer.sportmonks.com/api/v2.0/venues/${venue_id}?api_token=1GoW5Zal0tKjHcvovZTHNVty1B35cuZHol8sz9TPNgwIyl22350MGOEOGdn5`)
         return fetch(`https://soccer.sportmonks.com/api/v2.0/venues/${venue_id}?api_token=1GoW5Zal0tKjHcvovZTHNVty1B35cuZHol8sz9TPNgwIyl22350MGOEOGdn5`)
-            .then(response => response.json())
+            .then(response => {
+                if (response.status === 429) {
+                    // handle rate limit exceeded error
+                    console.log('Rate limit of API exceeded');
+                  }
+                else {
+                return response.json();
+                }
+            })
             .then(data => {
                 let cityDiv = document.getElementById('showCity');
                 cityDiv.innerHTML = ""
@@ -129,7 +145,6 @@ function showDropdown() {
     let div = document.getElementById("results");
         div.innerHTML = '';
 };
-
 //The first part of this function checks all checkboxes and puts the values of all ticked boxes in the variable called 'filtersWith'
 //It also adds a comma to all values because that's important for the syntax for the next api call
 //After all boxes are checked, it removes the last character (the final comma) of the string, otherwise the api call won't work
@@ -194,7 +209,7 @@ function checkboxToURL(coordinates) {
                     //console.log(conditions)
                     //console.log(distance)
                     let detailURL = `https://api.geoapify.com/v2/place-details?id=${place_id}&apiKey=51d3185c0772406c92f1907efa83798e`
-                    console.log(detailURL);
+                    console.log("detailURL is " + detailURL);
                     let name = ""
                     //console.log(item.properties.name + " is the name")
                     if (item.properties.name != undefined) {
@@ -202,6 +217,7 @@ function checkboxToURL(coordinates) {
                     }
                     let template = `<div class="bg-secondary m-3 p-3">
                                         <h2>${name}</h2>
+                                        
                                         <p>Adress: ${item.properties.address_line2}</p>
                                         <p>Distance to stadium: ${distance}</p>
                                         <button id="button-details-${index}" onclick="fetchPlaceDetails('${detailURL}', ${index}, '${conditions}')">Details</button>
@@ -542,6 +558,7 @@ function hideDetails(index) {
 //This function calles up the football api-function, then changes the display state of the search function
 //It also links a function with the coordinates to a function
 function fixtureToMenu(id) {
+
     let container1 = document.getElementById('container1');
     let container2 = document.getElementById('container2');
     container1.style.display = "none";
@@ -585,6 +602,32 @@ function goBack() {
     let container2 = document.getElementById('container2');
     container1.style.display = "block";
     container2.style.display = "none";
+
+    let acc = document.getElementById("acc");
+    let cat = document.getElementById("cat");
+    let hea = document.getElementById("hea");
+    let par = document.getElementById("par");
+    let ren = document.getElementById("ren");
+    let tra = document.getElementById("tra");
+    let rad = document.getElementById("rad");
+    let res = document.getElementById("res");
+    let filt2Acc = document.getElementById("filter2Acc");
+    let filt2Cat =  document.getElementById("filter2Cat");
+    let filtOpt = document.getElementById("filterOpt");
+    let filt2Whe = document.getElementById("filter2Whe");
+    
+    res.style.display = "none"
+    rad.style.display = "none"
+    filt2Acc.style.display = "none";
+    filt2Cat.style.display = "none";
+    filtOpt.style.display = "none";
+    filt2Whe.style.display = "none";
+    acc.style.display = "none";
+    cat.style.display = "none";
+    hea.style.display = "none";
+    par.style.display = "none";
+    ren.style.display = "none";
+    tra.style.display = "none";
 }
 //Categories it needs to check:
 //Accomodation
@@ -625,12 +668,22 @@ function getFixtures(id) {
       if (!response.ok) {
         throw new Error("HTTP error " + response.status);
       }
+      if (response.status == 429) {
+        console.log('Rate limit of API exceeded');
+      }
       return response.json();
     })
     .then(data => {
-      //console.log(data)
+      //console.log(data.data)
       let fixturecontainer = document.getElementById("fixtures-container");
       fixturecontainer.innerHTML = "";
+      if (data.data.length == 0) {
+        fixturecontainer.innerHTML = `<div class="row fixtures_card" id="empty">
+                                        <h2 class="text-dark">No games were found between these dates</h2>
+                                        </div>
+                                        `;
+      }
+      
       data.data.forEach(fixture => {
         let fixtureLeagueID = fixture.league_id
         if (fixtureLeagueID == id || isNaN(id)) {
@@ -640,7 +693,13 @@ function getFixtures(id) {
         console.log(urlHomeTeam);
         //Promise all
         Promise.all([fetch(urlHomeTeam),fetch(urlAwayTeam)])
-          .then(([res1, res2]) => Promise.all([res1.json(), res2.json()]))
+        .then(([res1, res2]) => {
+            if (res1.status === 429 || res2.status === 429) {
+              console.log('Rate limit of API exceeded');
+            } else {
+              return Promise.all([res1.json(), res2.json()]);
+            }
+          })
           .then(([data1, data2]) => {
             console.log(data1, data2);
             let homeTeamName = data1.data.name;
@@ -667,9 +726,22 @@ function getFixtures(id) {
                 </div>
             `;
             fixturecontainer.innerHTML += fixtureElement;
+
+            if (fixturecontainer.children.length == 0) {
+                console.log("so it should work");
+                fixturecontainer.innerHTML = `<div class="row fixtures_card" id="empty">
+                <h2 class="text-dark">There were no games for this league between the given dates</h2>
+                </div>
+                `;
+            }
           })
           
+
           .catch(error => console.log(error));
-    }});
+    }
+});
+        
+
     })
+        
 }
