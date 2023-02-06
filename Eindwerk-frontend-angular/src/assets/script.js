@@ -181,7 +181,7 @@ function checkboxToURL(coordinates) {
     let radius = document.getElementById('radius').value;
     //console.log(`filters: ${filters} & coordinates: ${coordinates} & radius ${radius}`);
     let geoapifyURL = `https://api.geoapify.com/v2/places?categories=${filters}&filter=circle:${coordinates},${radius}&limit=20&apiKey=2e37c02459684f11b9472b5ec244d1e3`
-    //console.log(geoapifyURL);
+    console.log(geoapifyURL);
     fetch(geoapifyURL)
     .then(response => response.json())
     .then(data => {
