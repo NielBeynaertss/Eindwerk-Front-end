@@ -59,7 +59,7 @@ Route::post('/favourite_fixtures', function (Request $request) {
 
     if (DB::table('favourite_fixtures')->where(['league_id' => $league_id, 'user_id' => $user_id])->exists()) {
         return response()->json([
-            'message' => 'League already exists'
+            'message' => 'League already chosen'
         ], 409);
     }
 
