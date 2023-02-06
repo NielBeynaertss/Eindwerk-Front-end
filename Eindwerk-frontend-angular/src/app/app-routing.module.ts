@@ -12,13 +12,18 @@ import { ResultsComponent } from './results/results.component';
 
 const routes: Routes = [
   {
-    path: 'secure', component: SecureComponent, canActivate: [AuthGuard]
+    path: '', 
+    component: LoginComponent
   },
   {
-    path: '', component: LoginComponent
+    path: 'login',
+    component: LoginComponent
   },
   {
     path: 'registration', component: RegistrationComponent
+  },
+  {
+    path: 'secure', component: SecureComponent, canActivate: [AuthGuard]
   },
   {
     path: 'home',
