@@ -3,8 +3,8 @@
         <img [src]="league.logo_path" alt="{{ league.name }} logo" class="card_img_style">
         <div class="card-body text-center">
             <div class="card-title">{{ league.name }}</div>
-            <a [routerLink]="['/fixtures', league.id]" class="btn btn-primary">Get fixtures</a>
-            <button (click)="addToFavorites(league.id)">Favourites</button>
+            <a [routerLink]="['/fixtures', league.id]" class="btn btn-primary m-1">Get fixtures</a><br>
+            <button (click)="addToFavorites(league.id)" class="p-1">Favourites</button>
         </div>
     </div>
 </div>
