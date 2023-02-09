@@ -8,7 +8,6 @@ import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { AuthGuard } from './auth.guard';
 import { SecureComponent } from './secure/secure.component';
-import { ResultsComponent } from './results/results.component';
 
 const routes: Routes = [
   {
@@ -48,11 +47,6 @@ const routes: Routes = [
   {
     path: 'contact',
     component: ContactComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'results',
-    component: ResultsComponent,
     canActivate: [AuthGuard]
   }
 ];
