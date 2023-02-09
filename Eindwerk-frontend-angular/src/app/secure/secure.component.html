@@ -7,7 +7,7 @@
             <div class="row text-light favourite_leagues_div">
                 <h3 class="m-2">Favourite leagues</h3>
                 <div *ngFor="let league of leagues">
-                    <div class="m-3">{{league.league_name}}<button (click)="deleteLeague(league)">x</button></div>
+                    <div class="m-3"><b>{{league.league_name}}</b><button (click)="deleteLeague(league)" class="btn btn-danger m-2">x</button></div>
                 </div>
             </div>
 
