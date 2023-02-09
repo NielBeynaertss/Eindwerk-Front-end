@@ -78,6 +78,7 @@ Route::post('/favourite_leagues', function (Request $request) {
 });
 
 
+//Get league names based on joining IDs from multiple tables
 Route::get('/favourite_leagues/{user_id}', function ($user_id) {
     $league_ids = DB::table('favourite_leagues')
     ->join('leagues', 'favourite_leagues.league_id', '=', 'leagues.league_id')
@@ -90,6 +91,22 @@ Route::get('/favourite_leagues/{user_id}', function ($user_id) {
 });
 
 
-Route::get('/leagues', function() {
-    return DB::table('leagues')-> get();
+//Route to delete favourite league
+Route::delete('/favourite_leagues/{user_id}/{league_name}', function ($user_id, $league_name) {
+    $league_id = DB::table('leagues')
+    ->where('leagues.league_name', $league_name)
+    ->first()->league_id;
+
+    DB::table('favourite_leagues')
+    ->where('favourite_leagues.user_id', $user_id)
+    ->where('favourite_leagues.league_id', $league_id)
+    ->delete();
+    return response()->json([        
+        'message' => 'Deleted successfully'        
+    ], 200);
 });
+
+
+//Route::get('/leagues', function() {
+//    return DB::table('leagues')-> get();
+//});

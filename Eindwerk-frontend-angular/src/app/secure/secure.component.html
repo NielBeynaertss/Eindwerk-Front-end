@@ -4,16 +4,15 @@
             <div class="row text-light">
                 <h1 class="main"><u>Welcome {{username}}!</u></h1>
             </div>
-            <div class="row text-light">
-                <h3>Favourite leagues</h3>
+            <div class="row text-light favourite_leagues_div">
+                <h3 class="m-2">Favourite leagues</h3>
+                <div *ngFor="let league of leagues">
+                    <div class="m-3">{{league.league_name}}<button (click)="deleteLeague(league)">x</button></div>
+                </div>
             </div>
 
-            <div *ngFor="let league of leagues" class="text-light favourite_leagues_div row">
-                <div class="favourite_league m-3">{{league.league_name}}</div>
-            </div>
-              
-            <div class="row mb-3">
-                <a href="" class="register text-light" (click)="logout()">Logout</a>
+            <div class="row m-3 text-center">
+                <a href="" class="register text-light btn btn-primary logout_button" (click)="logout()">Logout</a>
             </div>
         </div>
     </div>

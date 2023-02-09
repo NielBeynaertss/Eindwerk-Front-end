@@ -18,6 +18,7 @@ export class SecureComponent{
   username: any;
   email:any;
   leagues: any[] = [];
+  url: string = 'http://127.0.0.1:8000/api';
 
 
 
@@ -33,7 +34,7 @@ export class SecureComponent{
     this.router.navigate(['/']);
   }
 
-  url: string = 'http://127.0.0.1:8000/api';
+  
   ngOnInit() {
     fetch(this.url + '/favourite_leagues/' + window.localStorage.getItem('userId'))
       .then(response => {
@@ -47,14 +48,17 @@ export class SecureComponent{
         this.leagues = data.league_names;
         console.log(this.leagues);
       });
-      
-      
-      
+        
   }
-/*
-  ngOnInit(){
-    console.log(window.localStorage.getItem('userId'));
-    this.profileService.getFavourites();
+
+  deleteLeague(league: any) {
+    const url = `${this.url}/favourite_leagues/${window.localStorage.getItem('userId')}/${league.league_name}`;
+    return this.http.delete(url)
+      .toPromise()
+      .then(() => {
+        this.leagues = this.leagues.filter(l => l !== league);
+      })
+      .catch(err => console.error(err));
   }
-*/
+
 }
