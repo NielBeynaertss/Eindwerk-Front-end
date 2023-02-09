@@ -31,6 +31,7 @@ Route::get('/users/{name}', function ($name) {
 
 });
 
+//Add users to database
 Route::post('/users', function (Request $request) {
     $name = $request->input('name');
     $password = $request->input('password');
@@ -53,10 +54,9 @@ Route::post('/users', function (Request $request) {
     ], 201);
 });
 
-Route::get('/favourite_leagues', function() {
-    return DB::table('favourite_leagues')-> get();
-});
 
+
+//Add favourite league to database
 Route::post('/favourite_leagues', function (Request $request) {
     $league_id = $request->input('league_id');
     $user_id = $request->input('user_id');
@@ -105,8 +105,3 @@ Route::delete('/favourite_leagues/{user_id}/{league_name}', function ($user_id, 
         'message' => 'Deleted successfully'        
     ], 200);
 });
-
-
-//Route::get('/leagues', function() {
-//    return DB::table('leagues')-> get();
-//});
