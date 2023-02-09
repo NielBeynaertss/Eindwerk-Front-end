@@ -13,7 +13,7 @@ function fetchFootballAPI(id) {
     })
     .then(data => {
         venue_id = data.data.venue_id;
-        console.log(`https://soccer.sportmonks.com/api/v2.0/venues/${venue_id}?api_token=1GoW5Zal0tKjHcvovZTHNVty1B35cuZHol8sz9TPNgwIyl22350MGOEOGdn5`)
+        //console.log(`https://soccer.sportmonks.com/api/v2.0/venues/${venue_id}?api_token=1GoW5Zal0tKjHcvovZTHNVty1B35cuZHol8sz9TPNgwIyl22350MGOEOGdn5`)
         return fetch(`https://soccer.sportmonks.com/api/v2.0/venues/${venue_id}?api_token=1GoW5Zal0tKjHcvovZTHNVty1B35cuZHol8sz9TPNgwIyl22350MGOEOGdn5`)
             .then(response => {
                 if (response.status === 429) {
@@ -181,7 +181,7 @@ function checkboxToURL(coordinates) {
     let radius = document.getElementById('radius').value;
     //console.log(`filters: ${filters} & coordinates: ${coordinates} & radius ${radius}`);
     let geoapifyURL = `https://api.geoapify.com/v2/places?categories=${filters}&filter=circle:${coordinates},${radius}&limit=20&apiKey=2e37c02459684f11b9472b5ec244d1e3`
-    console.log(geoapifyURL);
+    //console.log(geoapifyURL);
     fetch(geoapifyURL)
     .then(response => response.json())
     .then(data => {
@@ -209,7 +209,7 @@ function checkboxToURL(coordinates) {
                     //console.log(conditions)
                     //console.log(distance)
                     let detailURL = `https://api.geoapify.com/v2/place-details?id=${place_id}&apiKey=51d3185c0772406c92f1907efa83798e`
-                    console.log("detailURL is " + detailURL);
+                    //console.log("detailURL is " + detailURL);
                     let name = ""
                     //console.log(item.properties.name + " is the name")
                     if (item.properties.name != undefined) {
@@ -498,7 +498,7 @@ function checkConditions(info) {
 //This is why it's not part of the main fetch, because calling the api for all results would make it hit the request cap very fast
 //It creates a new template containing some important information if you're more interested in the place
 function fetchPlaceDetails(url, index, conditions) {
-    console.log(url)
+    //console.log(url)
     //console.log(conditions)
     fetch(url)
     .then(response => response.json())
@@ -524,7 +524,7 @@ function fetchPlaceDetails(url, index, conditions) {
             websiteTemplate = `<p> No website given</p>`
         }
         if ("opening_hours" in placeDetails) {
-            //console.log("IT WORKS 3")
+            //console.log("IT WORKS AGAIN")
             hoursTemplate = `<p> Opening hours: ${placeDetails.opening_hours}</p>`
         }
         else {
@@ -629,36 +629,14 @@ function goBack() {
     ren.style.display = "none";
     tra.style.display = "none";
 }
-//Categories it needs to check:
-//Accomodation
-//Catering
-//Healthcare
-//Parking
-//Rental
-//Airport
-//Public Transport
-
-//Eventueel later:
-//Sport
-//Services?
-//Commercial?
-//Entertainment?
-//Tourism?
-
-
-
-//to do:
-//Title needs to tell what the result is
-//More information in details?
-//make details customizable OR add a new button where you can look at the filters you've set
 
 function getFixtures(id) {
-    console.log(id);
+    //console.log(id);
     let date1 = document.getElementById("start-date").value;
     let date2 = document.getElementById("end-date").value;
-    console.log(date1 + ' and ' + date2)
+    //console.log(date1 + ' and ' + date2)
     let urlFixtures = `https://soccer.sportmonks.com/api/v2.0/fixtures/between/${date1}/${date2}?api_token=1GoW5Zal0tKjHcvovZTHNVty1B35cuZHol8sz9TPNgwIyl22350MGOEOGdn5`
-    console.log(urlFixtures);
+    //console.log(urlFixtures);
     fetch(urlFixtures)
     .then(response => {
       if (!response.ok) {
@@ -670,7 +648,7 @@ function getFixtures(id) {
       return response.json();
     })
     .then(data => {
-      console.log(data.data)
+      //console.log(data.data)
       let fixturecontainer = document.getElementById("fixtures-container");
       fixturecontainer.innerHTML = "";
       if (data.data.length == 0) {
@@ -690,7 +668,7 @@ function getFixtures(id) {
         let fixture_hometeam_id = fixture.localteam_id;
         let urlHomeTeam = `https://soccer.sportmonks.com/api/v2.0/teams/${fixture_hometeam_id}?api_token=XknJJDTtdX0z1nFtbPxt1C29IestIRI7izPt9gtzTFZP7JDZufu6nAmW8F70`;
         let urlAwayTeam = `https://soccer.sportmonks.com/api/v2.0/teams/${fixture.visitorteam_id}?api_token=zXfWlxKKH8Fdyrtnc8mnISyho6CjXaXEX2jiRpUfa9UxSZWomwpt5fQhRh9k`;
-        console.log(urlHomeTeam);
+        //console.log(urlHomeTeam);
         //Promise all
         Promise.all([fetch(urlHomeTeam),fetch(urlAwayTeam)])
         .then(([res1, res2]) => {
@@ -701,7 +679,7 @@ function getFixtures(id) {
             }
           })
           .then(([data1, data2]) => {
-            console.log(data1, data2);
+            //console.log(data1, data2);
             let homeTeamName = data1.data.name;
             let awayTeamName = data2.data.name;
             let homeTeamLogo = data1.data.logo_path;
@@ -726,18 +704,6 @@ function getFixtures(id) {
                 </div>
             `;
             fixturecontainer.innerHTML += fixtureElement;
-            console.log(fixturecontainer.innerHTML)
-            //console.log(fixturecontainer.children.length)
-            //if (fixturecontainer.children.length == 0) {
-            //    console.log("so it should work");
-            //    fixturecontainer.innerHTML = `<div class="row fixtures_card" id="empty">
-            //    <h2 class="text-dark">There were no games for this league between the given dates</h2>
-            //    </div>
-            //    `;
-            //}
-            //else {
-            //    console.log(fixturecontainer.children.length)
-            //}
           })
           
 
