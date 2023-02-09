@@ -12,6 +12,7 @@ export class AuthService {
     window.localStorage.removeItem('username');
     window.localStorage.removeItem('userId');
     window.localStorage.removeItem('profile');
+    window.localStorage.removeItem('favouriteLeagues');
   }
 
   constructor() { }

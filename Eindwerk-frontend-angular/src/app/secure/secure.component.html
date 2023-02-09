@@ -1,15 +1,20 @@
-
 <main>
     <div class="container-sm">
         <div class="col secure">
-            <h1 class="main text-light">
-                Welcome {{username}}! 
-            </h1>
-                
-            <div class="mb-3">
+            <div class="row text-light">
+                <h1 class="main"><u>Welcome {{username}}!</u></h1>
+            </div>
+            <div class="row text-light">
+                <h3>Favourite leagues</h3>
+            </div>
+
+            <div *ngFor="let league of leagues" class="text-light favourite_leagues_div row">
+                <div class="favourite_league m-3">{{league.league_name}}</div>
+            </div>
+              
+            <div class="row mb-3">
                 <a href="" class="register text-light" (click)="logout()">Logout</a>
             </div>
-                
         </div>
     </div>
 </main>

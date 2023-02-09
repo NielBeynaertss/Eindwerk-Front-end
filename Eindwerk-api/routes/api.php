@@ -53,17 +53,21 @@ Route::post('/users', function (Request $request) {
     ], 201);
 });
 
-Route::post('/favourite_fixtures', function (Request $request) {
+Route::get('/favourite_leagues', function() {
+    return DB::table('favourite_leagues')-> get();
+});
+
+Route::post('/favourite_leagues', function (Request $request) {
     $league_id = $request->input('league_id');
     $user_id = $request->input('user_id');
 
-    if (DB::table('favourite_fixtures')->where(['league_id' => $league_id, 'user_id' => $user_id])->exists()) {
+    if (DB::table('favourite_leagues')->where(['league_id' => $league_id, 'user_id' => $user_id])->exists()) {
         return response()->json([
             'message' => 'League already chosen'
         ], 409);
     }
 
-    DB::table('favourite_fixtures')->insert([
+    DB::table('favourite_leagues')->insert([
         'league_id' => $league_id,
         'user_id' => $user_id
     ]);
@@ -73,3 +77,19 @@ Route::post('/favourite_fixtures', function (Request $request) {
     ], 201);
 });
 
+
+Route::get('/favourite_leagues/{user_id}', function ($user_id) {
+    $league_ids = DB::table('favourite_leagues')
+    ->join('leagues', 'favourite_leagues.league_id', '=', 'leagues.league_id')
+    ->select('leagues.league_name')
+    ->where('favourite_leagues.user_id', $user_id)
+    ->get();
+    return response()->json([
+        'league_names' => $league_ids    
+    ], 200);
+});
+
+
+Route::get('/leagues', function() {
+    return DB::table('leagues')-> get();
+});
