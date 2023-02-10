@@ -710,7 +710,6 @@ function getFixtures(id) {
           .catch(error => console.log(error));
     }
 });
-//console.log(counter + " is gelijk aan " + cards);
 if (counter != cards) {
     fixturecontainer.innerHTML = `<div class="row fixtures_card" id="empty">
                 <h2 class="text-dark">There were no games for this league between the given dates</h2>
