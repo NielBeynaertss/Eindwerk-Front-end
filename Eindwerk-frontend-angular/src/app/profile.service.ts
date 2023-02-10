@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import * as bcrypt from 'bcryptjs';
-import { ToastrService } from 'ngx-toastr';
 
 
 @Injectable({
@@ -15,11 +14,11 @@ export class ProfileService {
   leagues: any[] = [];
 
 
-  constructor(private router: Router, private toastr: ToastrService, private hhtp: HttpClient) { 
+  constructor(private router: Router, private hhtp: HttpClient) { 
 
   }
 
-
+  //Add a league to your favourite leagues  
   addFavourites(id: number) {
     let userId = window.localStorage.getItem('userId'); // code to get the current logged-in user ID
     console.log(userId);
@@ -40,33 +39,14 @@ export class ProfileService {
       .then(response => {
         console.log(response.status);
         if (response.status === 201) {
-          this.toastr.success('yay', 'You have selected a favorite');
+          alert('Yay , You have selected a favorite');
         } else {
           alert('already selected this league');
         }
       });
   }
 
-
-  getFavourites() {
-    fetch(this.url + '/favourite_leagues/' + window.localStorage.getItem('userId'))
-      .then(response => {
-        if (!response.ok) throw new Error(response.statusText);
-        return response.json();
-      })
-      .then(data => {
-        console.log(data);
-        this.leagues = data.league_names.map((league: {league_name: string}) => league.league_name);
-        console.log(data.league_names);
-        this.leagues = data.league_names;
-        console.log(this.leagues);
-      });
-      
-      
-      
-  }
-
-
+  //Register a user
   register(name: string, email: string, password: string) {
 
     console.log(JSON.stringify({
@@ -88,10 +68,10 @@ export class ProfileService {
       .then(response => {
         console.log(response.status);
         if (response.status == 201) {
-          this.toastr.success('yay', 'You have been registered');
+          alert('Yay, you have been registered');
           this.router.navigate(['/']);
         } else {
-          this.toastr.warning('Whoops', 'Something went wrong');
+          alert('Whoops, something went wrong');
         }
       })
   }
@@ -119,8 +99,8 @@ export class ProfileService {
         });
       })
       .catch(error => {
-        if (error.message === "User not found") this.toastr.error('User not found', 'Unable to login');
-        else this.toastr.error('Error', 'An error occured');
+        if (error.message === "User not found") alert('User not found unable to login');
+        else alert('Error, an error occured');
       });
   }
 

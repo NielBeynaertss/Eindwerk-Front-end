@@ -28,13 +28,13 @@ export class SecureComponent{
     this.email = window.localStorage.getItem('email');
 
   }
-
+  //Logging out
   logout() {
     this.authService.logout();
     this.router.navigate(['/']);
   }
 
-  
+  //Get your favourite leagues per user
   ngOnInit() {
     fetch(this.url + '/favourite_leagues/' + window.localStorage.getItem('userId'))
       .then(response => {
@@ -50,7 +50,8 @@ export class SecureComponent{
       });
         
   }
-
+  
+  //Delete a league from your favourites list
   deleteLeague(league: any) {
     const url = `${this.url}/favourite_leagues/${window.localStorage.getItem('userId')}/${league.league_name}`;
     return this.http.delete(url)

@@ -17,10 +17,10 @@ export class LoginComponent {
     this.password = '';
   }
 
+  //Login function
   login() {
    this.profileService.getUsersFromApi(this.username, this.password);
   }
-
 
   ngOnInit(): void {
   }
