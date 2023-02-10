@@ -31,6 +31,7 @@ Route::get('/users/{name}', function ($name) {
 
 });
 
+//Add users to database
 Route::post('/users', function (Request $request) {
     $name = $request->input('name');
     $password = $request->input('password');
@@ -53,17 +54,20 @@ Route::post('/users', function (Request $request) {
     ], 201);
 });
 
-Route::post('/favourite_fixtures', function (Request $request) {
+
+
+//Add favourite league to database
+Route::post('/favourite_leagues', function (Request $request) {
     $league_id = $request->input('league_id');
     $user_id = $request->input('user_id');
 
-    if (DB::table('favourite_fixtures')->where(['league_id' => $league_id, 'user_id' => $user_id])->exists()) {
+    if (DB::table('favourite_leagues')->where(['league_id' => $league_id, 'user_id' => $user_id])->exists()) {
         return response()->json([
             'message' => 'League already chosen'
         ], 409);
     }
 
-    DB::table('favourite_fixtures')->insert([
+    DB::table('favourite_leagues')->insert([
         'league_id' => $league_id,
         'user_id' => $user_id
     ]);
@@ -73,3 +77,31 @@ Route::post('/favourite_fixtures', function (Request $request) {
     ], 201);
 });
 
+
+//Get league names based on joining IDs from multiple tables
+Route::get('/favourite_leagues/{user_id}', function ($user_id) {
+    $league_ids = DB::table('favourite_leagues')
+    ->join('leagues', 'favourite_leagues.league_id', '=', 'leagues.league_id')
+    ->select('leagues.league_name')
+    ->where('favourite_leagues.user_id', $user_id)
+    ->get();
+    return response()->json([
+        'league_names' => $league_ids    
+    ], 200);
+});
+
+
+//Route to delete favourite league
+Route::delete('/favourite_leagues/{user_id}/{league_name}', function ($user_id, $league_name) {
+    $league_id = DB::table('leagues')
+    ->where('leagues.league_name', $league_name)
+    ->first()->league_id;
+
+    DB::table('favourite_leagues')
+    ->where('favourite_leagues.user_id', $user_id)
+    ->where('favourite_leagues.league_id', $league_id)
+    ->delete();
+    return response()->json([        
+        'message' => 'Deleted successfully'        
+    ], 200);
+});

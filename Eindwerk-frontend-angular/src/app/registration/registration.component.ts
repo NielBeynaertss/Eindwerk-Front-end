@@ -18,6 +18,7 @@ export class RegistrationComponent {
     this.email = '';
   }
 
+  //Register function
   register() {
     console.log('name: ' + this.name);
     this.profileService.register(this.name, this.email, this.password)

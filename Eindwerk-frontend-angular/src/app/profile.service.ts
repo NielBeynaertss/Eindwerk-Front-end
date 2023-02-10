@@ -1,7 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import * as bcrypt from 'bcryptjs';
-import { ToastrService } from 'ngx-toastr';
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +11,14 @@ export class ProfileService {
 
 
   url: string = 'http://127.0.0.1:8000/api';
+  leagues: any[] = [];
 
-  constructor(private router: Router, private toastr: ToastrService) { }
 
+  constructor(private router: Router, private hhtp: HttpClient) { 
+
+  }
+
+  //Add a league to your favourite leagues  
   addFavourites(id: number) {
     let userId = window.localStorage.getItem('userId'); // code to get the current logged-in user ID
     console.log(userId);
@@ -20,7 +26,7 @@ export class ProfileService {
       league_id: id,
       user_id: userId
     }));
-    fetch(this.url + '/favourite_fixtures', {
+    fetch(this.url + '/favourite_leagues', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -33,15 +39,14 @@ export class ProfileService {
       .then(response => {
         console.log(response.status);
         if (response.status === 201) {
-          this.toastr.success('yay', 'You have selected a favorite');
+          alert('Yay , You have selected a favorite');
         } else {
           alert('already selected this league');
         }
       });
   }
-  
 
-
+  //Register a user
   register(name: string, email: string, password: string) {
 
     console.log(JSON.stringify({
@@ -63,10 +68,10 @@ export class ProfileService {
       .then(response => {
         console.log(response.status);
         if (response.status == 201) {
-          this.toastr.success('yay', 'You have been registered');
+          alert('Yay, you have been registered');
           this.router.navigate(['/']);
         } else {
-          this.toastr.warning('Whoops', 'Something went wrong');
+          alert('Whoops, something went wrong');
         }
       })
   }
@@ -89,13 +94,13 @@ export class ProfileService {
             if (data[0].profile) { window.localStorage.setItem('profile', data[0].profile) };
             this.router.navigate(['/secure']);
           } else {
-            this.toastr.warning('Whoops', 'Something went wrong');
+            alert('Whoops, Something went wrong');
           }
         });
       })
       .catch(error => {
-        if (error.message === "User not found") this.toastr.error('User not found', 'Unable to login');
-        else this.toastr.error('Error', 'An error occured');
+        if (error.message === "User not found") alert('User not found unable to login');
+        else alert('Error, an error occured');
       });
   }
 
